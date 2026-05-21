@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>伊勢旅行しおり | 2026年9月</title>
+<style>
+:root {
+  --cream: #F6F3EE;
+  --white: #FFFFFF;
+  --text: #1E1B18;
+  --sub: #6B6560;
+  --muted: #A09A93;
+  --border: #E4DFD7;
+  --gold: #B8924A;
+  --d1: #3E5E82;
+  --d1-bg: #EBF0F7;
+  --d2: #964530;
+  --d2-bg: #F8EDE9;
+  --d3: #1A6B78;
+  --d3-bg: #E2F3F6;
+  --opt: #4A6B44;
+  --opt-bg: #E7F2E6;
+  --wk: #5A5047;
+  --wk-bg: #F0EDE8;
+  --r: 14px;
+  --rs: 8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:var(--cream);color:var(--text);max-width:430px;margin:0 auto;padding-bottom:48px;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* HERO */
+.hero{background:linear-gradient(150deg,rgba(10,22,34,0.88) 0%,rgba(20,46,64,0.78) 50%,rgba(30,62,86,0.70) 100%),url('ise_photos/hero.jpg') center 40%/cover no-repeat;padding:52px 24px 36px;position:relative;overflow:hidden}
+.hero::after{content:'⛩';position:absolute;right:14px;bottom:-12px;font-size:120px;opacity:.05;line-height:1;pointer-events:none}
+.hero-eye{font-size:10px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;opacity:.9}
+.hero-title{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.1;margin-bottom:6px}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:18px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:7px}
+.hero-chip{background:rgba(255,255,255,.11);color:rgba(255,255,255,.82);font-size:11px;padding:4px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.15)}
+
+/* TAB BAR */
+.tab-bar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:13px 15px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;border:none;border-bottom:2.5px solid transparent;background:none;transition:color .2s,border-color .2s}
+.tab.active{color:var(--text)}
+[data-tab="d1"].active{border-bottom-color:var(--d1)}
+[data-tab="d2"].active{border-bottom-color:var(--d2)}
+[data-tab="d3"].active{border-bottom-color:var(--d3)}
+[data-tab="memo"].active{border-bottom-color:var(--wk)}
+
+/* PANELS */
+.panel{display:none;padding:20px 16px}
+.panel.active{display:block}
+
+/* DAY HEADER */
+.day-lbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:4px}
+.day-title{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:10px}
+.day-note{font-size:12px;color:var(--sub);background:var(--white);border-radius:var(--rs);padding:11px 14px;line-height:1.72;border-left:3px solid var(--border);margin-bottom:20px}
+
+/* TIMELINE */
+.tl{position:relative}
+.tl::before{content:'';position:absolute;left:21px;top:0;bottom:0;width:1.5px;background:var(--border)}
+.tl-item{position:relative;padding-left:48px;margin-bottom:11px}
+.tl-dot{position:absolute;left:14px;top:17px;width:15px;height:15px;border-radius:50%;background:var(--white);border:2px solid var(--border);z-index:1}
+.tl-item.spot .tl-dot{border-width:2.5px}
+.tl-item.tx{margin-bottom:4px}
+.tx-lbl{font-size:11px;color:var(--muted);padding:5px 0 2px;display:flex;align-items:center;gap:5px}
+.tx-lbl::before{content:'›';font-size:16px;line-height:1}
+
+/* CARD */
+.card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07),0 0 0 1px rgba(0,0,0,.04);cursor:pointer;transition:box-shadow .2s}
+.card:active{box-shadow:0 3px 10px rgba(0,0,0,.11),0 0 0 1px rgba(0,0,0,.04)}
+.card-hd{padding:13px 14px;display:flex;align-items:flex-start;gap:10px}
+.card-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;margin-top:1px}
+.card-body{flex:1;min-width:0}
+.card-time{font-size:11px;color:var(--muted);margin-bottom:2px}
+.card-name{font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.card-brief{font-size:12px;color:var(--sub);margin-top:3px;line-height:1.5}
+.card-tags{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.tag{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:600}
+.tag-price{background:#FFF8EC;color:#9A6E10}
+.tag-era{background:#F0F0F0;color:#555}
+.tag-free{background:#ECFBF3;color:#1A7A46}
+.tag-opt{background:#FFF0F0;color:#B04040}
+.tag-info{background:#EDF3FC;color:#2855A0}
+.tag-warn{background:#FFF9EC;color:#9A6010}
+
+/* CARD CHEV — 詳細ボタン */
+.card-chev{flex-shrink:0;background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:5px 11px;font-size:0;font-weight:700;white-space:nowrap;align-self:flex-start;margin-top:2px;transition:background .2s,border-color .2s}
+.card-chev::after{content:'詳細 ▾';font-size:10px;color:var(--sub)}
+.card.open .card-chev{background:var(--d1-bg);border-color:var(--d1)}
+.card.open .card-chev::after{content:'閉じる ✕';color:var(--d1)}
+
+/* CARD DETAIL */
+.card-dt{max-height:0;overflow:hidden;transition:max-height .38s ease,padding .38s ease;padding:0 16px;border-top:0px solid var(--border)}
+.card.open .card-dt{max-height:4000px;padding:0 16px 16px;border-top:1px solid var(--border)}
+.card-dt-text{font-size:13px;color:var(--sub);line-height:1.75;padding-top:14px;margin-bottom:12px}
+.card-dt-text ul{list-style:none;padding:0}
+.card-dt-text li{padding:2px 0 2px 14px;position:relative}
+.card-dt-text li::before{content:'·';position:absolute;left:2px;color:var(--muted)}
+.card-dt-text strong{color:var(--text)}
+.card-dt-text p{margin-bottom:8px}
+
+/* INFO ROWS */
+.info-list{display:flex;flex-direction:column;gap:8px}
+.info-row{display:flex;align-items:flex-start;gap:8px;font-size:12px}
+.info-ico{width:24px;height:24px;background:var(--cream);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.info-val{flex:1;min-width:0;padding-top:3px;color:var(--sub);line-height:1.5}
+.info-val a{color:#2563EB;text-decoration:none;word-break:break-all}
+
+/* MAP BTN */
+.map-btn{display:inline-flex;align-items:center;gap:4px;background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:12px;color:var(--text);text-decoration:none;margin-top:10px;font-weight:600}
+
+/* SEP */
+.sep{height:1px;background:var(--border);margin:14px 0}
+
+/* ICON BG */
+.bg-d1{background:var(--d1-bg)}
+.bg-d2{background:var(--d2-bg)}
+.bg-d3{background:var(--d3-bg)}
+.bg-opt{background:var(--opt-bg)}
+.bg-wk{background:var(--wk-bg)}
+.bg-gr{background:var(--cream)}
+.bg-warn{background:#FFF9EC}
+
+/* DAY DOT ACCENT */
+.d1 .tl-item.spot .tl-dot{border-color:var(--d1)}
+.d1 .day-lbl{color:var(--d1)}
+.d2 .tl-item.spot .tl-dot{border-color:var(--d2)}
+.d2 .day-lbl{color:var(--d2)}
+.d3 .tl-item.spot .tl-dot{border-color:var(--d3)}
+.d3 .day-lbl{color:var(--d3)}
+
+/* MEMBER BOX */
+.member-box{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:16px}
+.member-row{display:flex;align-items:flex-start;padding:11px 16px;border-bottom:1px solid var(--border);gap:12px;font-size:13px}
+.member-row:last-child{border-bottom:none}
+.member-label{font-weight:700;min-width:60px;flex-shrink:0}
+.member-detail{color:var(--sub);font-size:12px;flex:1;line-height:1.6}
+
+/* SECTION TITLE */
+.sec-title{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.sec-title:first-child{margin-top:0}
+
+/* LIST BOX */
+.list-box{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.list-row{display:flex;align-items:flex-start;padding:11px 16px;border-bottom:1px solid var(--border);font-size:13px;gap:10px}
+.list-row:last-child{border-bottom:none}
+.list-row .rname{flex:1}
+.list-row .rval{color:var(--sub);font-size:12px;text-align:right}
+
+/* NOTE BOX */
+.note{background:#FFFBF0;border:1px solid #E8D9A0;border-radius:var(--rs);padding:12px 14px;font-size:12px;color:#7A6420;line-height:1.72;margin-top:14px}
+.note strong{color:#5A4810}
+.note-red{background:#FFF5F5;border-color:#F0C0C0;color:#8A3030}
+.note-red strong{color:#6A1010}
+.note-blue{background:#F0F6FF;border-color:#B0C8F0;color:#2A4880}
+.note-blue strong{color:#1A3060}
+
+/* CARD PHOTO */
+.card-photo{width:100%;height:158px;overflow:hidden;background:#D8EAE8}
+.card-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* HISTORY / HIGHLIGHT BLOCK */
+.hist-block{background:var(--cream);border-radius:var(--rs);padding:11px 13px;margin-bottom:10px}
+.hist-block:last-of-type{margin-bottom:12px}
+.hist-title{font-size:11px;font-weight:700;color:var(--sub);margin-bottom:5px;display:flex;align-items:center;gap:4px}
+.hist-body{font-size:13px;color:var(--sub);line-height:1.72}
+.hist-body ul{list-style:none;padding:0;margin:0}
+.hist-body li{padding:2px 0 2px 14px;position:relative}
+.hist-body li::before{content:'·';position:absolute;left:2px;color:var(--muted)}
+
+/* VOTE UI */
+.vote-box{padding:0 16px 18px}
+.vote-hd{font-size:11px;font-weight:700;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;margin:14px 0 10px}
+
+/* VOTE PHOTO GRID */
+.vote-photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.vote-photo-item{border-radius:8px;overflow:hidden;background:var(--cream);text-align:center}
+.vote-photo-item img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.vote-photo-name{font-size:10px;font-weight:700;padding:4px 3px 2px;color:var(--text);line-height:1.3}
+.vote-photo-sub{font-size:9px;color:var(--muted);padding:0 3px 5px;line-height:1.3}
+
+.vote-form-box{background:var(--cream);border-radius:12px;padding:14px;margin-top:14px}
+.vote-field{margin-bottom:10px}
+.vote-field label{display:block;font-size:11px;font-weight:700;color:var(--sub);margin-bottom:5px}
+.vote-field select,.vote-field input[type=text]{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--white);font-family:inherit;color:var(--text);-webkit-appearance:none;appearance:none;outline:none}
+.vote-field select:focus,.vote-field input[type=text]:focus{border-color:var(--d1)}
+.vote-submit-btn{width:100%;padding:13px;background:var(--d1);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;font-family:inherit}
+.vote-submit-btn:active{opacity:.85}
+.vote-result-box{margin-top:14px;background:var(--cream);border-radius:12px;padding:14px}
+.voters-wrap{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.voter-chip{font-size:11px;padding:4px 10px;border-radius:20px;background:var(--d1-bg);color:var(--d1);font-weight:700}
+.result-item{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.result-item:last-of-type{margin-bottom:0}
+.result-medal{font-size:18px;flex-shrink:0;width:24px;text-align:center;line-height:1}
+.result-bar-wrap{flex:1;min-width:0}
+.result-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.result-bar{height:7px;background:var(--d1);border-radius:4px;transition:width .5s ease;min-width:4px}
+.result-pts{font-size:12px;color:var(--gold);font-weight:700;flex-shrink:0}
+.vote-reset-btn{width:100%;padding:9px;margin-top:12px;background:none;border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit}
+
+/* VOTE CARD — 投票アコーディオン */
+.vote-card .card-chev{background:var(--d1-bg);border-color:var(--d1)}
+.vote-card .card-chev::after{content:'投票する ▾';font-size:10px;color:var(--d1);font-weight:700}
+.vote-card.open .card-chev{background:var(--d1);border-color:var(--d1)}
+.vote-card.open .card-chev::after{content:'閉じる ✕';color:#fff}
+.vote-card.open .card-dt{max-height:6000px}
+
+/* MENU LINK — 投票カード内メニュー表リンク */
+.vote-menu-btn{display:block;font-size:9px;font-weight:700;color:var(--d2);text-decoration:none;padding:2px 3px 5px;line-height:1.3}
+.vote-menu-btn:active{opacity:.7}
+
+/* VOTE CARD D2 — おかげ横丁投票（茶赤） */
+.vote-card-d2 .card-chev{background:var(--d2-bg);border-color:var(--d2)}
+.vote-card-d2 .card-chev::after{content:'投票する ▾';font-size:10px;color:var(--d2);font-weight:700}
+.vote-card-d2.open .card-chev{background:var(--d2);border-color:var(--d2)}
+.vote-card-d2.open .card-chev::after{content:'閉じる ✕';color:#fff}
+/* VOTE CARD D3 */
+.vote-card-d3 .card-chev{background:var(--d3-bg);border-color:var(--d3)}
+.vote-card-d3 .card-chev::after{content:'投票する ▾';font-size:10px;color:var(--d3);font-weight:700}
+.vote-card-d3.open .card-chev{background:var(--d3);border-color:var(--d3)}
+.vote-card-d3.open .card-chev::after{content:'閉じる ✕';color:#fff}
+
+/* OPT CARD */
+.ocard{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07),0 0 0 1px rgba(0,0,0,.04);cursor:pointer;margin-bottom:10px}
+
+/* COST STRIP */
+.cost-strip{background:var(--white);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center}
+.cost-strip .lbl{font-size:12px;color:var(--sub);flex:1}
+.cost-strip .val{font-size:13px;font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eye">Travel Guide</div>
+  <h1 class="hero-title">伊勢旅行<br>しおり</h1>
+  <div class="hero-sub">2026年9月 ― 3日間</div>
+  <div class="hero-chips">
+    <span class="hero-chip">👨‍👩‍👧‍👦 5名</span>
+    <span class="hero-chip">🚗 名古屋からミニバン</span>
+    <span class="hero-chip">⛩️ 伊勢神宮</span>
+    <span class="hero-chip">🌊 英虞湾クルーズ</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <button class="tab active" data-tab="d1">Day 1　移動日</button>
+  <button class="tab" data-tab="d2">Day 2　伊勢神宮</button>
+  <button class="tab" data-tab="d3">Day 3　志摩</button>
+  <button class="tab" data-tab="memo">メモ</button>
+</div>
+
+<!-- ========== DAY 1 ========== -->
+<div id="d1" class="panel active d1">
+  <div class="day-lbl">Day 1 ― 移動日</div>
+  <div class="day-title">東京集合 →<br>名古屋 → 鳥羽</div>
+  <div class="day-note">盛岡組の東京着に合わせて座間組が東京駅で待ち合わせ。のぞみで名古屋へ、ミニバンで鳥羽の戸田家へ。</div>
+
+  <!-- 駅弁投票 -->
+  <div class="card open vote-card" onclick="toggle(this)" style="margin-bottom:20px">
+    <div class="card-hd">
+      <div class="card-ico bg-warn">🍱</div>
+      <div class="card-body">
+        <div class="card-time">事前にみんなで</div>
+        <div class="card-name">新幹線お弁当 投票</div>
+        <div class="card-brief">もえが東京駅で買っておきます。第3希望まで選んでね</div>
+        <div class="card-tags">
+          <span class="tag tag-warn" id="vote-count-tag">⚠️ 要投票 0 / 5名</span>
+        </div>
+      </div>
+      <div class="card-chev"></div>
+    </div>
+    <div class="card-dt" onclick="event.stopPropagation()">
+      <div class="vote-box" style="padding:0 0 4px">
+        <div class="vote-hd">🍱 候補お弁当（駅弁屋 踊）</div>
+        <div class="vote-photo-grid" id="bento-list"></div>
+        <div class="vote-form-box">
+          <div class="vote-hd" style="margin-top:0;margin-bottom:12px">📝 あなたの希望を選んで</div>
+          <div class="vote-field">
+            <label>第1希望 ⭐</label>
+            <select id="v-1st"></select>
+          </div>
+          <div class="vote-field">
+            <label>第2希望 ☆</label>
+            <select id="v-2nd"></select>
+          </div>
+          <div class="vote-field">
+            <label>第3希望 ☆</label>
+            <select id="v-3rd"></select>
+          </div>
+          <button class="vote-submit-btn" onclick="submitVote();event.stopPropagation()">投票する 👍</button>
+        </div>
+        <div id="vote-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">メンバー別ルート</div>
+  <div class="member-box">
+    <div class="member-row">
+      <span class="member-label">🚃 座間組</span>
+      <span class="member-detail">座間駅 → 小田急（相模大野乗換）→ 新宿 → 東京駅<br><strong>約70分</strong></span>
+    </div>
+    <div class="member-row">
+      <span class="member-label">🚄 盛岡組</span>
+      <span class="member-detail">盛岡駅 → はやぶさ → 東京駅<br><strong>約2時間10〜20分</strong></span>
+    </div>
+  </div>
+
+  <div class="tl">
+
+    <!-- 東京駅合流 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/tokyo.jpg" loading="lazy" decoding="async" alt="東京駅"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d1">🤝</div>
+          <div class="card-body">
+            <div class="card-time">盛岡組に合わせて</div>
+            <div class="card-name">東京駅 合流</div>
+            <div class="card-brief">盛岡組の到着時刻に合わせて座間組が待ち合わせ</div>
+            <div class="card-tags"><span class="tag tag-info">待ち合わせ場所を事前確認</span></div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="card-dt-text">
+            <p>盛岡組の到着ホームや改札を確認して、わかりやすい待ち合わせ場所を決めておくとスムーズ。<br>例：丸の内中央改札前、銀の鈴など。</p>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">東京都千代田区丸の内1丁目（東京駅）</div></div>
+          </div>
+          <a href="https://maps.google.com/?q=東京駅" target="_blank" class="map-btn">🗺️ Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新幹線 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/shinkansen.jpg" loading="lazy" decoding="async" alt="のぞみ N700系"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d1">🚄</div>
+          <div class="card-body">
+            <div class="card-time">合流後 すぐ</div>
+            <div class="card-name">東京 → 名古屋（のぞみ）</div>
+            <div class="card-brief">約1時間35分。5名まとめてEX予約推奨</div>
+            <div class="card-tags">
+              <span class="tag tag-price">大人1名 約¥11,300</span>
+              <span class="tag tag-warn">要事前予約</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="card-dt-text">
+            <ul>
+              <li>EX予約・スマートEXで5名まとめて指定席予約推奨</li>
+              <li>9月週末は早めの予約が安心</li>
+              <li>こだまより<strong>のぞみ・ひかり</strong>が断然速い</li>
+            </ul>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://expy.jp/" target="_blank">expy.jp（EX予約公式）</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl">名古屋駅 着</div></div>
+
+    <!-- レンタカー -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-hd">
+          <div class="card-ico bg-wk">🚗</div>
+          <div class="card-body">
+            <div class="card-time">名古屋駅 着後</div>
+            <div class="card-name">レンタカー 受け取り</div>
+            <div class="card-brief">アルファード・ノアなど大型ミニバンを指定予約</div>
+            <div class="card-tags"><span class="tag tag-warn">ETC車載器確認</span></div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="card-dt-text">
+            <ul>
+              <li>5名＋荷物が余裕で乗れる<strong>アルファード・ヴェルファイア・ノア等</strong>を指定予約</li>
+              <li>乗降しやすい車種（全員ゆったり乗り降りできる）</li>
+              <li>ETC車載器の有無と設定を受け取り時に確認</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl">東名阪 → 伊勢関 → 伊勢道 → 伊勢二見鳥羽ライン（無料区間）</div></div>
+
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-hd">
+          <div class="card-ico bg-d1">🕐</div>
+          <div class="card-body">
+            <div class="card-time">移動（約1時間50分）</div>
+            <div class="card-name">名古屋 → 鳥羽</div>
+            <div class="card-brief">高速料金：約3,400〜4,000円</div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="card-dt-text">
+            <ul>
+              <li>東名阪自動車道 → 伊勢関IC → 伊勢自動車道</li>
+              <li>伊勢二見鳥羽ラインは無料区間</li>
+              <li>高速料金目安：約3,400〜4,000円（ETC）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 戸田家 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/todaya.jpg" loading="lazy" decoding="async" alt="戸田家"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d1">🏨</div>
+          <div class="card-body">
+            <div class="card-time">到着後〜夕食</div>
+            <div class="card-name">戸田家 チェックイン</div>
+            <div class="card-brief">鳥羽駅から徒歩約3分。夕食はバイキング・朝食付き</div>
+            <div class="card-tags">
+              <span class="tag tag-info">1泊目</span>
+              <span class="tag tag-price">夕食バイキング</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">明治時代創業の老舗旅館。鳥羽港のすぐそばに位置し、100年以上にわたって三重の海の幸でもてなしてきた。「温泉村」の名で知られる複合施設を持ち、多彩な湯船が自慢。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ</div>
+            <div class="hist-body"><ul>
+              <li>鳥羽港を望む和室からの眺め</li>
+              <li>13種の温泉・18の寝湯を持つ「温泉村」</li>
+              <li>夕食は<strong>バイキング</strong>形式。伊勢海老・アワビをはじめ三重の海の幸が勢揃い</li>
+
+            </ul></div>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒517-0011 三重県鳥羽市鳥羽3-17-5</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0599252500">0599-25-2500</a></div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://todaya.co.jp/" target="_blank">todaya.co.jp</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=戸田家+鳥羽市鳥羽3-17-5" target="_blank" class="map-btn">🗺️ Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl" style="color:var(--opt);font-weight:700">★ 時間があれば（Day 1）</div></div>
+
+    <!-- 鳥羽水族館 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/toba.jpg" loading="lazy" decoding="async" alt="鳥羽水族館"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-opt">🐟</div>
+          <div class="card-body">
+            <div class="card-time">チェックイン前 or 翌朝</div>
+            <div class="card-name">鳥羽水族館</div>
+            <div class="card-brief">戸田家の目の前。ジュゴン・ラッコが見られる</div>
+            <div class="card-tags">
+              <span class="tag tag-opt">オプション</span>
+              <span class="tag tag-price">大人¥2,800</span>
+              <span class="tag tag-era">2〜3時間</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">1955年開館。日本最多水準の約1,200種の生き物を展示する世界屈指の水族館。1992年に大規模リニューアルし、12のゾーンで生き物を分類展示。ジュゴンの飼育は日本で唯一ここだけ。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ</div>
+            <div class="hist-body"><ul>
+              <li><strong>ジュゴン</strong>：日本唯一の飼育個体。子どもから大人まで大人気</li>
+              <li><strong>ラッコ</strong>：愛くるしい姿に癒やされる。展示数は国内有数</li>
+              <li><strong>人魚伝説コーナー</strong>：ジュゴンが人魚伝説のモデルとされた歴史を展示</li>
+              <li><strong>アシカ・セイウチ</strong>：迫力のショーが人気（1日数回）</li>
+            </ul></div>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒517-0013 三重県鳥羽市鳥羽3-3-6</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0599252555">0599-25-2555</a></div></div>
+            <div class="info-row"><div class="info-ico">🕐</div><div class="info-val">9:00〜17:00</div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://www.aquarium.co.jp/" target="_blank">aquarium.co.jp</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=鳥羽水族館+三重県鳥羽市鳥羽3-3-6" target="_blank" class="map-btn">🗺️ Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== DAY 2 ========== -->
+<div id="d2" class="panel d2">
+  <div class="day-lbl">Day 2 ― 伊勢神宮</div>
+  <div class="day-title">外宮 → 内宮<br>おかげ横丁</div>
+  <div class="day-note">9月週末は混雑します。朝イチの外宮から始めて、内宮到着を11:30頃に合わせると動きやすい。内宮は正宮＋荒祭宮に絞るのがおすすめ。みんなのペースでゆっくり楽しもう。</div>
+
+  <!-- おかげ横丁お店投票 -->
+  <div class="card open vote-card vote-card-d2" onclick="toggle(this)" style="margin-bottom:20px">
+    <div class="card-hd">
+      <div class="card-ico bg-d2">🏮</div>
+      <div class="card-body">
+        <div class="card-time">事前にみんなで</div>
+        <div class="card-name">おかげ横丁 お店投票</div>
+        <div class="card-brief">もえが参考にします。行きたいお店を第3希望まで選んでね</div>
+        <div class="card-tags">
+          <span class="tag tag-warn" id="yoko-count-tag">⚠️ 要投票 0 / 5名</span>
+        </div>
+      </div>
+      <div class="card-chev"></div>
+    </div>
+    <div class="card-dt" onclick="event.stopPropagation()">
+      <div class="vote-box" style="padding:0 0 4px">
+        <div class="vote-hd">🏮 候補お店（おかげ横丁）</div>
+        <div class="vote-photo-grid" id="yoko-food-list"></div>
+        <div class="vote-form-box">
+          <div class="vote-hd" style="margin-top:0;margin-bottom:12px">📝 あなたの希望を選んで</div>
+          <div class="vote-field">
+            <label>第1希望 ⭐</label>
+            <select id="y-1st"></select>
+          </div>
+          <div class="vote-field">
+            <label>第2希望 ☆</label>
+            <select id="y-2nd"></select>
+          </div>
+          <div class="vote-field">
+            <label>第3希望 ☆</label>
+            <select id="y-3rd"></select>
+          </div>
+          <button class="vote-submit-btn" style="background:var(--d2)" onclick="submitYokoVote();event.stopPropagation()">投票する 👍</button>
+        </div>
+        <div id="yoko-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl">
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl">08:30 戸田家 出発 → 外宮へ（車・約20分）</div></div>
+
+    <!-- 外宮 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/geku.jpg" loading="lazy" decoding="async" alt="外宮（豊受大神宮）"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d2">⛩️</div>
+          <div class="card-body">
+            <div class="card-time">09:00〜10:00</div>
+            <div class="card-name">外宮（豊受大神宮）</div>
+            <div class="card-brief">正宮 → 別宮（多賀宮）の順に参拝</div>
+            <div class="card-tags">
+              <span class="tag tag-free">参拝無料</span>
+              <span class="tag tag-info">駐車場 2h無料・350台</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">約1,500年前、雄略天皇の時代に内宮から現在地へ遷座。食・農業・産業の神様「豊受大御神」を祀り、内宮の天照大御神のお食事を司る神様として崇められてきた。伊勢参りは「外宮先参り」が古くからの習わし。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ</div>
+            <div class="hist-body"><ul>
+              <li><strong>正宮（御正殿）</strong>：茅葺き4重屋根の荘厳な社殿</li>
+              <li><strong>多賀宮</strong>：外宮最大の別宮。石段を上った小高い丘に鎮座</li>
+              <li><strong>三ツ石</strong>：式年遷宮で心御柱を建てる場所。神秘的な空気感</li>
+              <li><strong>せんぐう館</strong>：式年遷宮の歴史・道具を展示（入館有料）</li>
+            </ul></div>
+          </div>
+          <div class="card-dt-text">
+            <ul>
+              <li><strong>外宮前駐車場</strong>（2時間無料・350台）を利用</li>
+              <li><strong>正宮</strong> → <strong>別宮・多賀宮</strong>の順が基本ルート</li>
+              <li>内宮より歩く距離が短め。正宮だけなら20〜30分で参拝可能</li>
+              <li>朝の外宮は比較的空いていて参拝しやすい</li>
+            </ul>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒516-0042 三重県伊勢市豊川町279</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0596241111">0596-24-1111（神宮司庁）</a></div></div>
+            <div class="info-row"><div class="info-ico">🕐</div><div class="info-val">5:00〜18:00（季節により変動）</div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://www.isejingu.or.jp/" target="_blank">isejingu.or.jp</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=伊勢神宮外宮+三重県伊勢市豊川町279" target="_blank" class="map-btn">🗺️ Google Maps</a>
+          <a href="https://www.isejingu.or.jp/visit/map/" target="_blank" class="map-btn" style="margin-top:6px">⛩️ 神宮公式マップ</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl">外宮 → 内宮エリアへ（車・約10分）市営宇治駐車場 or 民間予約駐車場を利用</div></div>
+
+    <!-- おかげ横丁 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/okage.jpg" loading="lazy" decoding="async" alt="おかげ横丁"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d2">🍡</div>
+          <div class="card-body">
+            <div class="card-time">10:30〜11:30（内宮前）</div>
+            <div class="card-name">おかげ横丁・おはらい町</div>
+            <div class="card-brief">早めのランチ＆散策。混雑前の時間帯がベスト</div>
+            <div class="card-tags"><span class="tag tag-warn">混雑注意</span></div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">江戸〜明治の伊勢路の建築様式を復元し1993年に誕生した門前町。江戸時代には「一生に一度はお伊勢参り」と全国から年間数百万人が参拝に訪れた「おかげ参り」の賑わいを今に伝えている。おはらい町と合わせて約800mの参道に60店舗以上が連なる。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ・おすすめ店</div>
+            <div class="hist-body"><ul>
+              <li><strong>赤福本店</strong>：安政元年創業。五十鈴川を眺めながら食べるあんこ餅は格別</li>
+              <li><strong>ふくすけ</strong>：太麺でとろみのある醤油だれが特徴の「伊勢うどん」</li>
+              <li><strong>豚捨</strong>：松阪牛コロッケ。行列必至の名物</li>
+              <li><strong>太鼓櫓</strong>：毎正時に太鼓の音が響く。横丁のシンボル</li>
+              <li><strong>五十鈴川カフェ</strong>：川沿いのテラスで一休みできる</li>
+            </ul></div>
+          </div>
+          <div class="card-dt-text">
+            <ul>
+              <li><strong>伊勢うどん</strong>・手こね寿司・松阪牛串など内宮前グルメを堪能</li>
+              <li><strong>赤福本店</strong>でひと休み（あんこ餅＋ほうじ茶）</li>
+              <li>内宮参拝前に食事・休憩を済ませると体力的に楽</li>
+              <li>ゆったりできる茶屋休憩を確保してゆっくり歩こう</li>
+            </ul>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒516-0025 三重県伊勢市宇治中之切町52</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0596238838">0596-23-8838</a></div></div>
+            <div class="info-row"><div class="info-ico">🕐</div><div class="info-val">店舗により異なる（9:00〜17:00頃）</div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://www.okageyokocho.co.jp/" target="_blank">okageyokocho.co.jp</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=おかげ横丁+三重県伊勢市" target="_blank" class="map-btn">🗺️ Google Maps</a>
+          <a href="https://stroly.com/viewer/1649806374?zoom=2" target="_blank" class="map-btn" style="margin-top:6px">🏪 おかげ横丁 観光マップ</a>
+
+          <div class="sep"></div>
+          <div style="font-size:12px;font-weight:700;color:var(--sub);margin-bottom:8px">赤福本店</div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒516-0025 三重県伊勢市宇治中之切町26</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0596227000">0596-22-7000</a></div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://www.akafuku.co.jp/" target="_blank">akafuku.co.jp</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 内宮 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/naiku.jpg" loading="lazy" decoding="async" alt="内宮（皇大神宮）"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d2">🏯</div>
+          <div class="card-body">
+            <div class="card-time">11:30〜13:30</div>
+            <div class="card-name">内宮（皇大神宮）</div>
+            <div class="card-brief">宇治橋 → 五十鈴川 → 正宮 → 荒祭宮</div>
+            <div class="card-tags">
+              <span class="tag tag-free">参拝無料</span>
+              <span class="tag tag-warn">9月週末は混雑</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">約2,000年前、垂仁天皇の時代に現在地に鎮座した日本最高の神社。日本人の総氏神「天照大御神」を祀る。20年ごとに行われる「式年遷宮」は1,300年以上続く伝統で、次回は2033年。境内は5,500ヘクタールに及ぶ神宮の森に抱かれている。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ</div>
+            <div class="hist-body"><ul>
+              <li><strong>宇治橋</strong>：五十鈴川に架かる全長101.8mの木製橋。日常と神域の境界</li>
+              <li><strong>五十鈴川御手洗場</strong>：清流で手を清める。川のせせらぎが心地よい</li>
+              <li><strong>正宮（御正殿）</strong>：最奥の聖域。写真撮影は鳥居の外まで</li>
+              <li><strong>荒祭宮</strong>：個人の願いを祈るのはここ。パワースポットとして人気</li>
+              <li><strong>神宮の森</strong>：樹齢数百年のスギや檜の巨木が並ぶ参道</li>
+            </ul></div>
+          </div>
+          <div class="card-dt-text">
+            <ul>
+              <li><strong>宇治橋</strong> → <strong>五十鈴川御手洗場</strong> → <strong>正宮</strong> → <strong>荒祭宮</strong>の順</li>
+              <li>正宮では感謝の参拝のみ。個人の願いは<strong>別宮・荒祭宮</strong>へ</li>
+              <li>正宮＋荒祭宮に絞るのがおすすめ（体力温存）</li>
+              <li>途中のベンチも活用しながらゆっくり歩く</li>
+            </ul>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒516-0023 三重県伊勢市宇治館町1</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0596241111">0596-24-1111（神宮司庁）</a></div></div>
+            <div class="info-row"><div class="info-ico">🕐</div><div class="info-val">5:00〜18:00（季節により変動）</div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://www.isejingu.or.jp/" target="_blank">isejingu.or.jp</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=伊勢神宮内宮+三重県伊勢市宇治館町1" target="_blank" class="map-btn">🗺️ Google Maps</a>
+          <a href="https://www.isejingu.or.jp/visit/map/" target="_blank" class="map-btn" style="margin-top:6px">⛩️ 神宮公式マップ</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl">14:00 内宮 出発 → 都リゾート志摩（車・約40〜50分）伊勢道 → 国道167号</div></div>
+
+    <!-- 都リゾート -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/resort.jpg" loading="lazy" decoding="async" alt="英虞湾・都リゾート志摩"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d3">🏖️</div>
+          <div class="card-body">
+            <div class="card-time">15:00〜 チェックイン</div>
+            <div class="card-name">都リゾート 志摩 ベイサイドテラス</div>
+            <div class="card-brief">英虞湾を望むリゾートホテル。夕食は和懐石・朝食付き</div>
+            <div class="card-tags">
+              <span class="tag tag-info">2泊目</span>
+              <span class="tag tag-price">夕食 和懐石</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ・施設</div>
+            <div class="hist-body"><ul>
+              <li><strong>英虞湾ビュー</strong>：客室・レストランから湾の絶景を一望</li>
+              <li><strong>夕食（和懐石）</strong>：伊勢海老・鮑など三重の海の幸が主役の懐石コース</li>
+              <li><strong>夕景</strong>：英虞湾に沈む夕日は志摩随一と名高い</li>
+              <li><strong>翌朝のロケーション</strong>：賢島クルーズ乗船場まで車で約10分</li>
+            </ul></div>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒517-0502 三重県志摩市阿児町神明731</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0599431211">0599-43-1211</a></div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://www.miyakohotels.ne.jp/bayside-terrace/" target="_blank">miyakohotels.ne.jp/bayside-terrace</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=都リゾート志摩ベイサイドテラス+三重県志摩市阿児町神明731" target="_blank" class="map-btn">🗺️ Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== DAY 3 ========== -->
+<div id="d3" class="panel d3">
+  <div class="day-lbl">Day 3 ― 志摩</div>
+  <div class="day-title">英虞湾クルーズ →<br>スペイン村 → 解散</div>
+  <div class="day-note">クルーズは先着乗船制なので15分前には集合を。スペイン村のフラメンコショーは要予約（¥700）。名古屋解散後のプランも投票で決めよう！</div>
+
+  <!-- クルーズ投票 -->
+  <div class="card open vote-card vote-card-d3" onclick="toggle(this)" style="margin-bottom:20px">
+    <div class="card-hd">
+      <div class="card-ico bg-d3">🚢</div>
+      <div class="card-body">
+        <div class="card-time">事前にみんなで</div>
+        <div class="card-name">クルーズ どっちにする？</div>
+        <div class="card-brief">2つのクルーズから行きたい方を選んでね</div>
+        <div class="card-tags">
+          <span class="tag tag-warn" id="cruise-count-tag">⚠️ 要投票 0 / 5名</span>
+        </div>
+      </div>
+      <div class="card-chev"></div>
+    </div>
+    <div class="card-dt" onclick="event.stopPropagation()">
+      <div class="vote-box" style="padding:0 0 4px">
+        <div class="vote-hd">🚢 候補クルーズ（2択）</div>
+        <div class="vote-photo-grid" id="cruise-list"></div>
+        <div class="vote-form-box">
+          <select class="vote-select" id="cv-choice">
+            <option value="">── クルーズを選ぶ ──</option>
+            <option value="cr1">賢島エスパーニャクルーズ</option>
+            <option value="cr2">鳥羽湾めぐりとイルカ島</option>
+          </select>
+          <button class="vote-submit-btn" style="background:var(--d3)" onclick="submitCruiseVote();event.stopPropagation()">投票する 👍</button>
+        </div>
+        <div id="cruise-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl">
+
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-hd">
+          <div class="card-ico bg-gr">🌅</div>
+          <div class="card-body">
+            <div class="card-time">朝食後〜09:30</div>
+            <div class="card-name">チェックアウト準備</div>
+            <div class="card-brief">朝食後にゆっくり支度。余裕があれば下の横山展望台へ</div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="card-dt-text">朝食後にゆっくり準備を。体力に余裕があれば横山展望台（車で約5分）で英虞湾の絶景を朝に楽しむのもおすすめ。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl" style="color:var(--opt);font-weight:700">★ 時間があれば（Day 3 朝）</div></div>
+
+    <!-- 横山展望台 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/yokoyama.jpg" loading="lazy" decoding="async" alt="横山展望台・英虞湾"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-opt">🏔️</div>
+          <div class="card-body">
+            <div class="card-time">クルーズ前・車で約5分</div>
+            <div class="card-name">横山展望台</div>
+            <div class="card-brief">英虞湾を一望するパノラマ絶景。朝がおすすめ</div>
+            <div class="card-tags">
+              <span class="tag tag-opt">オプション</span>
+              <span class="tag tag-free">入場無料</span>
+              <span class="tag tag-era">30〜60分</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">伊勢志摩国立公園内に位置する展望地。英虞湾は複雑に入り組んだリアス海岸に60以上の小島が浮かぶ独特の地形を持ち、真珠養殖発祥の地でもある。横山地区からの眺望は三重を代表する景観の一つ。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ</div>
+            <div class="hist-body"><ul>
+              <li><strong>英虞湾360°パノラマ</strong>：島々・真珠いかだ・リアス海岸を一望</li>
+              <li><strong>朝の空気感</strong>：クルーズ前の朝に立ち寄ると靄がかかり幻想的</li>
+              <li><strong>遊歩道3コース</strong>：歩く距離・難易度を選べる（展望台まで最短5分）</li>
+              <li>入場無料・常時開放。車でアクセス可能</li>
+            </ul></div>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">三重県志摩市阿児町鵜方2754-294</div></div>
+            <div class="info-row"><div class="info-ico">🕐</div><div class="info-val">常時開放（無料）</div></div>
+          </div>
+          <a href="https://maps.google.com/?q=横山展望台+志摩市阿児町鵜方" target="_blank" class="map-btn">🗺️ Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- クルーズ -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/cruise.jpg" loading="lazy" decoding="async" alt="賢島エスパーニャクルーズ"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d3">🚢</div>
+          <div class="card-body">
+            <div class="card-time">09:30〜11:00</div>
+            <div class="card-name">賢島エスパーニャクルーズ</div>
+            <div class="card-brief">大型遊覧船「エスペランサ」で英虞湾を約50分周遊</div>
+            <div class="card-tags">
+              <span class="tag tag-warn">先着乗船制・15分前集合</span>
+              <span class="tag tag-warn">天候により運休あり</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">英虞湾は1899年、御木本幸吉が世界初の真珠養殖に成功した海。現在も湾内に真珠いかだが並ぶ、真珠の聖地。エスパーニャクルーズは近鉄グループが運航し、スペイン村と組み合わせた観光の定番として長年親しまれてきた。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ</div>
+            <div class="hist-body"><ul>
+              <li><strong>真珠いかだ</strong>：湾内に点在する養殖いかだが間近に見える</li>
+              <li><strong>リアス海岸の島々</strong>：60以上の小島が連なる独特の景観</li>
+              <li><strong>展望デッキ</strong>：甲板に出て潮風を感じながら360°の眺め</li>
+              <li>大型船で揺れが少なく、小さな子も安心</li>
+            </ul></div>
+          </div>
+          <div class="card-dt-text">
+            <ul>
+              <li>大型遊覧船<strong>「エスペランサ」</strong>で英虞湾を約50分周遊</li>
+              <li>賢島駅そば発着、<strong>出航15分前集合</strong>・先着乗船制</li>
+              <li>⚠️ 天候により運休あり。時刻は公式サイトで要確認</li>
+            </ul>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">三重県志摩市阿児町賢島（賢島港）</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0599431023">0599-43-1023</a></div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://shima-marineleisure.com/espana" target="_blank">shima-marineleisure.com/espana</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=賢島港+三重県志摩市阿児町賢島" target="_blank" class="map-btn">🗺️ Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl">クルーズ終了後 → 志摩スペイン村（車・約15〜20分）</div></div>
+
+    <!-- スペイン村 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-photo"><img src="ise_photos/spain.jpg" loading="lazy" decoding="async" alt="志摩スペイン村"></div>
+        <div class="card-hd">
+          <div class="card-ico bg-d3">🎡</div>
+          <div class="card-body">
+            <div class="card-time">〜15:30頃まで</div>
+            <div class="card-name">志摩スペイン村 パルケエスパーニャ</div>
+            <div class="card-brief">フラメンコショー・スペイン街並み・ランチ</div>
+            <div class="card-tags">
+              <span class="tag tag-era">9:30〜17:00</span>
+              <span class="tag tag-warn">フラメンコ要予約¥700</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="hist-block">
+            <div class="hist-title">🏛 歴史・由来</div>
+            <div class="hist-body">1994年開業。スペイン各地の街並みを再現した志摩半島のテーマパーク。建物・衣装・料理・ショーに至るまでスペイン文化を本格再現しており、三重の南伊勢エリアを代表する観光地として30年以上親しまれている。</div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">💃 フラメンコショー「アライゴ」</div>
+            <div class="hist-body"><ul>
+              <li>本場スペイン人ダンサーによる本格フラメンコ（約25分）</li>
+              <li>場所：<strong>カルメンホール</strong></li>
+              <li>時間：<strong>11:00〜</strong> または <strong>15:25〜</strong>（1日2〜3回）</li>
+              <li>料金：<strong>¥700</strong>（要事前予約）</li>
+              <li><a href="https://www.parque-net.com/entertainment/schedule/" target="_blank" style="color:var(--d3);font-size:11px">📅 ショースケジュール確認</a></li>
+            </ul></div>
+          </div>
+          <div class="hist-block">
+            <div class="hist-title">⭐ みどころ</div>
+            <div class="hist-body"><ul>
+              <li><strong>スペイン街並み</strong>：白壁・テラコッタ屋根の街並みが映える</li>
+              <li><strong>ランチ</strong>：パエリア・タパス・本格スペイン料理のレストランが揃う</li>
+              <li><strong>ひまわりの湯</strong>：パーク隣接のスパ施設。帰路前の立ち寄りに◎</li>
+              <li>ベンチが多く、ゆっくり過ごすにも向いている</li>
+            </ul></div>
+          </div>
+          <div class="card-dt-text">
+            <ul>
+              <li>9:30発クルーズなら <strong>11:00のショー</strong>に間に合う</li>
+              <li>10:30発クルーズなら <strong>15:25のショー</strong>を狙う</li>
+              <li>スペイン街並み散策・ランチをはさんでゆっくり</li>
+            </ul>
+          </div>
+          <div class="info-list">
+            <div class="info-row"><div class="info-ico">📍</div><div class="info-val">〒517-0212 三重県志摩市磯部町坂崎695</div></div>
+            <div class="info-row"><div class="info-ico">📞</div><div class="info-val"><a href="tel:0599573333">0599-57-3333</a></div></div>
+            <div class="info-row"><div class="info-ico">🕐</div><div class="info-val">9:30〜17:00（変動あり）</div></div>
+            <div class="info-row"><div class="info-ico">🌐</div><div class="info-val"><a href="https://www.parque-net.com/" target="_blank">parque-net.com</a></div></div>
+          </div>
+          <a href="https://maps.google.com/?q=志摩スペイン村+三重県志摩市磯部町坂崎695" target="_blank" class="map-btn">🗺️ Google Maps</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tx"><div class="tl-dot"></div><div class="tx-lbl">15:30 出発 → 名古屋駅（伊勢道 → 東名阪、約2時間）</div></div>
+
+    <!-- 名古屋解散後 投票 -->
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card open vote-card" onclick="toggle(this)" style="margin-bottom:12px">
+        <div class="card-hd">
+          <div class="card-ico bg-d1">🗳️</div>
+          <div class="card-body">
+            <div class="card-time">事前にみんなで</div>
+            <div class="card-name">名古屋解散後どうする？</div>
+            <div class="card-brief">3択で投票してね</div>
+            <div class="card-tags">
+              <span class="tag tag-warn" id="nagoya-count-tag">⚠️ 要投票 0 / 5名</span>
+            </div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt" onclick="event.stopPropagation()">
+          <div class="vote-box" style="padding:0 0 4px">
+            <div class="vote-hd">🗺️ 3つのプランから選んでね</div>
+            <div style="display:flex;gap:6px;margin-bottom:12px" id="nagoya-list"></div>
+            <div class="vote-form-box">
+              <select class="vote-select" id="nv-choice">
+                <option value="">── プランを選ぶ ──</option>
+                <option value="n1">🏯 名古屋観光＋宿泊</option>
+                <option value="n2">🗻 静岡移動＋宿泊</option>
+                <option value="n3">🚄 品川まで移動</option>
+              </select>
+              <button class="vote-submit-btn" onclick="submitNagoyaVote();event.stopPropagation()">投票する 👍</button>
+            </div>
+            <div id="nagoya-results"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item spot">
+      <div class="tl-dot"></div>
+      <div class="card" onclick="toggle(this)">
+        <div class="card-hd">
+          <div class="card-ico bg-d1">🏁</div>
+          <div class="card-body">
+            <div class="card-time">17:30〜 名古屋解散</div>
+            <div class="card-name">名古屋駅 レンタカー返却 → 解散</div>
+            <div class="card-brief">各組の帰路時刻に合わせて出発時刻を調整</div>
+          </div>
+          <div class="card-chev"></div>
+        </div>
+        <div class="card-dt">
+          <div class="card-dt-text">
+            <ul>
+              <li><strong>盛岡組：</strong>はやぶさで約2時間10分</li>
+              <li><strong>座間組：</strong>のぞみ＋小田急で約2時間30分</li>
+              <li>最終の新幹線・在来線の時刻を事前確認して出発時刻を逆算</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== メモ ========== -->
+<div id="memo" class="panel">
+  <div class="day-lbl" style="color:var(--wk)">Notes</div>
+  <div class="day-title">メモ・注意事項</div>
+
+  <div class="sec-title">合流ルート確認</div>
+  <div class="list-box">
+    <div class="list-row" style="flex-direction:column;gap:4px;align-items:flex-start">
+      <span style="font-weight:700">座間組</span>
+      <span style="font-size:12px;color:var(--sub)">座間 → 小田急（相模大野乗換）→ 新宿 → 東京　計約70分</span>
+    </div>
+    <div class="list-row" style="flex-direction:column;gap:4px;align-items:flex-start">
+      <span style="font-weight:700">盛岡組</span>
+      <span style="font-size:12px;color:var(--sub)">盛岡 → はやぶさ → 東京　計約2時間10〜20分</span>
+    </div>
+    <div class="list-row" style="flex-direction:column;gap:4px;align-items:flex-start">
+      <span style="font-weight:700">東京 → 名古屋</span>
+      <span style="font-size:12px;color:var(--sub)">のぞみ　約1時間35分　大人1名 約¥11,300</span>
+    </div>
+  </div>
+
+  <div class="note note-blue" style="margin-top:12px">
+    <strong>🚄 新幹線</strong><br>
+    EX予約・スマートEXで5名まとめて指定席予約。9月週末は早めに予約を。
+  </div>
+
+  <div class="sec-title" style="margin-top:20px">レンタカー</div>
+  <div class="note">
+    <strong>🚗 車種</strong>：アルファード・ヴェルファイア・ノア・ヴォクシーなど大型ミニバンを指定予約。全員ゆったり乗り降りできる車種を。<br><br>
+    <strong>📡 ETC</strong>：車載器の有無と設定を受け取り時に必ず確認。<br><br>
+    <strong>💰 高速料金目安</strong>：名古屋〜鳥羽 約3,400〜4,000円（ETC）
+  </div>
+
+  <div class="sec-title" style="margin-top:20px">伊勢神宮</div>
+  <div class="note note-red">
+    <strong>⚠️ 駐車場混雑</strong><br>
+    内宮駐車場は9月の平日でも9:30頃には満車になることがある。朝イチの外宮参拝から始めることで、内宮エリア到着を11:30頃にずらすのが有効。
+  </div>
+  <div class="note" style="margin-top:8px">
+    <strong>👟 体力温存</strong>：内宮は広大なため<strong>正宮＋荒祭宮</strong>に絞る。歩きやすい靴を。ベンチを活用しながら無理のないペースで。
+  </div>
+
+  <div class="sec-title" style="margin-top:20px">クルーズ</div>
+  <div class="note note-red">
+    <strong>⚠️ 天候により運休あり</strong><br>
+    前日・当日に志摩マリンレジャー公式サイトで運航確認を。時刻は公式サイト要確認・先着乗船制。
+  </div>
+  <div class="info-list" style="margin-top:10px">
+    <div class="info-row"><div class="info-ico">🌐</div><div class="info-val" style="padding-top:3px;font-size:12px;color:var(--sub)"><a href="https://shima-marineleisure.com/espana" target="_blank">shima-marineleisure.com/espana</a></div></div>
+  </div>
+
+  <div class="note" style="margin-top:14px">
+    <strong>📅 帰りの時刻逆算</strong><br>
+    スペイン村→名古屋が約2時間のため、名古屋発の最終のぞみ・はやぶさの時刻から逆算してスペイン村の出発時刻を決めておくと安心。
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    var id = this.dataset.tab;
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    this.classList.add('active');
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+function toggle(card){ card.classList.toggle('open'); }
+
+// ===== BENTO VOTE =====
+var _JR = 'https://shopping.jreast.co.jp/order/html/upload/save_image/shop/17401/product/';
+var BENTO = [
+  { id:'b1',  name:'チキン弁当',                   img:_JR+'6388/0924120545_68d36009f2201.jpg' },
+  { id:'b2',  name:'チキン弁当デラックス',           img:_JR+'6383/0924110406_68d351969f2d3.jpg' },
+  { id:'b3',  name:'牛すきと牛焼肉弁当',             img:_JR+'6398/0330115934_69c9e71679a36.jpg' },
+  { id:'b4',  name:'牛肉どまん中',                   img:_JR+'3615/image_s.jpg' },
+  { id:'b5',  name:'日本ばし大増 牛すき焼き重',       img:_JR+'3650/0312182937_69b287811400c.png' },
+  { id:'b6',  name:'えび千両ちらし',                 img:_JR+'3616/image_s.jpg' },
+  { id:'b7',  name:'えんがわ押し寿司',               img:_JR+'3613/1208120304_69363fe8112dd.png' },
+  { id:'b8',  name:'えんがわと海老の押寿し',           img:_JR+'5407/0718143751_6879ddaf9fc41.jpg' },
+  { id:'b9',  name:'東京弁当',                       img:_JR+'6406/0925122911_68d4b7075b59a.jpg' },
+  { id:'b10', name:'深川めし',                       img:_JR+'6375/0922104251_68d0a99b818d1.png' },
+  { id:'b11', name:'幕之内弁当',                     img:_JR+'6423/0925144245_68d4d6553f50f.jpg' },
+  { id:'b12', name:'銀だら幕之内',                   img:_JR+'6422/0925121030_68d4b2a683b15.jpg' },
+  { id:'b13', name:'まぐろいくら弁当',               img:_JR+'6376/0922112915_68d0b47b03cad.jpg' },
+  { id:'b14', name:'鮭といくら弁当',                 img:_JR+'6407/0925115005_68d4addd9baa3.jpg' },
+  { id:'b15', name:'炭火焼風牛タン弁当',             img:_JR+'6390/0924124359_68d368ff66fbc.jpg' },
+  { id:'b16', name:'ふくしま満福弁当',               img:_JR+'8210/0326153522_69c4d3aa3d067.jpg' },
+  { id:'b17', name:'東北福興弁当',                   img:_JR+'6408/0305122952_69a8f8b08c892.png' },
+  { id:'b18', name:'新幹線E7系弁当',                 img:_JR+'6397/0925114838_68d4ad861da04.jpg' },
+  { id:'b19', name:'信長の野望 山形牛すきやき牛肉重', img:_JR+'8223/0402165033_69ce1fc915502.png' },
+  { id:'b20', name:'日本ばし大増 上幕之内',           img:_JR+'6374/0924143615_68d3834fa69eb.jpg' },
+  { id:'b21', name:'三元豚とんかつ弁当',             img:_JR+'6394/0924132453_68d372952f698.jpg' },
+  { id:'b22', name:'しらす弁当',                     img:_JR+'6392/0924130723_68d36e7b1ff4b.png' },
+  { id:'b23', name:'やまゆり牛しぐれ煮弁当',         img:_JR+'6389/0924123743_68d367879947c.jpg' },
+  { id:'b24', name:'とりめし',                       img:_JR+'6391/0924125309_68d36b2508dc8.png' },
+  { id:'b25', name:'江戸甘味噌カツ牛すき弁当',       img:_JR+'6395/0924135920_68d37aa831c5a.png' },
+  { id:'b26', name:'あなご弁当',                     img:_JR+'6393/0924131624_68d3709811c78.png' },
+  { id:'b27', name:'大船軒鯵の押寿し',               img:_JR+'3655/image_s.jpg' },
+  { id:'b28', name:'伝承鯵の押寿し',                 img:_JR+'3659/image_s.JPG' },
+  { id:'b29', name:'押寿し詰合せ',                   img:_JR+'6567/1014165328_68ee0178422e0.png' },
+  { id:'b30', name:'押寿し食べくらべ',               img:_JR+'6586/1015151910_68ef3cde40cd2.jpg' },
+  { id:'b31', name:'さば棒寿司',                     img:_JR+'6585/1015150925_68ef3a953abe7.jpg' },
+  { id:'b32', name:'伯養軒の炙りえんがわずし',       img:_JR+'3614/image_s.jpg' },
+  { id:'b33', name:'E5系はやぶさ弁当',              img:_JR+'7836/0121133326_69705716e2ab4.png' },
+  { id:'b34', name:'E6系こまちランチ',              img:_JR+'3621/0527165506_68356fdac8397.jpg' },
+  { id:'b35', name:'E8系山形新幹線つばさ弁当',      img:_JR+'7929/0127181458_69788212e6ce7.JPG' },
+  { id:'b36', name:'500系ハローキティ新幹線弁当',   img:_JR+'7943/0129154617_697b02392a719.png' },
+  { id:'b37', name:'クロミランチ',                  img:_JR+'7838/0121150002_69706b62d94c6.jpg' },
+  { id:'b38', name:'大船軒サンドウヰッチ',           img:_JR+'3622/image_s.jpg' },
+  { id:'b39', name:'ミックスサンド',                 img:_JR+'3651/image_s.jpg' },
+  { id:'b40', name:'やわらかひれかつサンド',          img:_JR+'3624/image_s.jpg' },
+  { id:'b41', name:'チキン弁当のからあげ（4個入り）', img:_JR+'6587/1015152755_68ef3eebd6181.jpg' },
+  { id:'b42', name:'国技館やきとり',                img:_JR+'6377/0922123538_68d0c40a95c97.jpg' }
+];
+
+function loadVotes(){ return JSON.parse(localStorage.getItem('bentoVotes2026')||'[]'); }
+function saveVotes(v){ localStorage.setItem('bentoVotes2026', JSON.stringify(v)); }
+
+function updateBentoSelects(){
+  var ids = ['v-1st','v-2nd','v-3rd'];
+  var sel = {};
+  ids.forEach(function(id){ var v=document.getElementById(id); if(v) sel[id]=v.value; });
+  ids.forEach(function(id){
+    var el = document.getElementById(id); if(!el) return;
+    var cur = sel[id];
+    el.innerHTML = '<option value="">選んでください</option>'
+      + BENTO.map(function(b){
+          var used = ids.some(function(oid){ return oid!==id && sel[oid]===b.id; });
+          if(used) return '';
+          return '<option value="'+b.id+'"'+(cur===b.id?' selected':'')+'>'+b.name+'</option>';
+        }).join('');
+  });
+}
+
+function initVote(){
+  var grid = document.getElementById('bento-list');
+  if(!grid) return;
+  grid.innerHTML = BENTO.map(function(b){
+    return '<div class="vote-photo-item">'
+      + '<img src="'+b.img+'" loading="lazy" alt="'+b.name+'">'
+      + '<div class="vote-photo-name">'+b.name+'</div>'
+      + '</div>';
+  }).join('');
+  var opts = '<option value="">選んでください</option>'
+    + BENTO.map(function(b){ return '<option value="'+b.id+'">'+b.name+'</option>'; }).join('');
+  ['v-1st','v-2nd','v-3rd'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el){ el.innerHTML = opts; el.addEventListener('change', updateBentoSelects); }
+  });
+  renderVoteResults();
+}
+
+function submitVote(){
+  var f1 = document.getElementById('v-1st').value;
+  var f2 = document.getElementById('v-2nd').value;
+  var f3 = document.getElementById('v-3rd').value;
+  if(!f1||!f2||!f3){ alert('第1〜3希望をすべて選んでください'); return; }
+  if(f1===f2||f1===f3||f2===f3){ alert('第1〜3希望はそれぞれ別のお弁当を選んでください'); return; }
+  var votes = loadVotes();
+  votes.push({f1:f1, f2:f2, f3:f3});
+  saveVotes(votes);
+  ['v-1st','v-2nd','v-3rd'].forEach(function(id){ document.getElementById(id).value=''; });
+  updateBentoSelects();
+  renderVoteResults();
+  alert('投票ありがとう！ 次の人にバトンタッチ 📱');
+}
+
+function renderVoteResults(){
+  var votes = loadVotes();
+  var tag = document.getElementById('vote-count-tag');
+  if(tag){
+    var n=votes.length;
+    tag.textContent = n>0 ? '📊 '+n+'票' : '投票してね';
+    tag.className = 'tag '+(n>0?'tag-info':'tag-warn');
+  }
+  var el = document.getElementById('vote-results');
+  if(!el) return;
+  if(votes.length===0){ el.innerHTML=''; return; }
+  var scores = {};
+  BENTO.forEach(function(b){ scores[b.id]=0; });
+  votes.forEach(function(v){ scores[v.f1]=(scores[v.f1]||0)+3; scores[v.f2]=(scores[v.f2]||0)+2; scores[v.f3]=(scores[v.f3]||0)+1; });
+  var sorted = BENTO.filter(function(b){ return scores[b.id]>0; }).sort(function(a,b){ return scores[b.id]-scores[a.id]; });
+  var maxScore = sorted.length ? scores[sorted[0].id] : 1;
+  var medals = ['🥇','🥈','🥉','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42'];
+  var barsHtml = sorted.map(function(b,i){
+    var pct = Math.round(scores[b.id]/maxScore*100);
+    return '<div class="result-item"><div class="result-medal">'+medals[i]+'</div>'
+      + '<div class="result-bar-wrap"><div class="result-name">'+b.name+'</div>'
+      + '<div class="result-bar" style="width:'+pct+'%"></div></div>'
+      + '<div class="result-pts">'+scores[b.id]+'pt</div></div>';
+  }).join('');
+  el.innerHTML = '<div class="vote-result-box"><div class="vote-hd" style="margin-top:0">📊 集計結果（'+votes.length+'票）</div>'
+    + barsHtml
+    + '<button class="vote-reset-btn" onclick="clearVotes()">🗑 投票をリセット</button></div>';
+}
+function clearVotes(){
+  if(confirm('投票をすべてリセットしますか？')){ localStorage.removeItem('bentoVotes2026'); renderVoteResults(); }
+}
+
+// ===== YOKO FOOD VOTE =====
+var YOKO_FOOD = [
+  { id:'y1', name:'すし久',      sub:'手こね寿司・伊勢うどん', img:'https://okageyokocho.com/main/wp-content/uploads/2021/08/153_10.03-scaled.jpg',   menu:'https://okageyokocho.com/main/wp-content/uploads/2021/08/2026.5%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf' },
+  { id:'y2', name:'海老丸',      sub:'伊勢海老・海鮮料理',     img:'https://okageyokocho.com/main/wp-content/uploads/2021/08/24%E6%B5%B7%E8%80%81%E4%B8%B8.jpg', menu:'https://okageyokocho.com/main/wp-content/uploads/2026/01/2025.11%E4%BF%A1%E6%B5%B7%E8%80%81%E4%B8%B8%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf' },
+  { id:'y3', name:'とうふや',    sub:'豆腐田楽・あなご料理',   img:'https://okageyokocho.com/main/wp-content/uploads/2021/08/116_10.03-scaled.jpg',   menu:'https://okageyokocho.com/main/wp-content/uploads/2021/08/26.4%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC-1.pdf' },
+  { id:'y4', name:'はいからさん',sub:'ふわとろオムハヤシ',     img:'https://okageyokocho.com/main/wp-content/uploads/2021/08/111a_9.22-scaled.jpg',   menu:'https://okageyokocho.com/main/wp-content/uploads/2021/08/26.4%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC_%E3%82%B3%E3%83%BC%E3%82%B9%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC-1.pdf' },
+  { id:'y5', name:'とりぶん倭',  sub:'伊勢赤どり唐揚げ',       img:'https://okageyokocho.com/main/wp-content/uploads/2021/08/264.jpg',                menu:'https://okageyokocho.com/main/wp-content/uploads/2026/02/2025.12%20%E6%AD%A3%E6%9C%88%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf' }
+];
+
+function loadYokoVotes(){ return JSON.parse(localStorage.getItem('yokochoVotes2026')||'[]'); }
+function saveYokoVotes(v){ localStorage.setItem('yokochoVotes2026', JSON.stringify(v)); }
+
+function updateYokoSelects(){
+  var ids = ['y-1st','y-2nd','y-3rd'];
+  var sel = {};
+  ids.forEach(function(id){ var v=document.getElementById(id); if(v) sel[id]=v.value; });
+  ids.forEach(function(id){
+    var el = document.getElementById(id); if(!el) return;
+    var cur = sel[id];
+    el.innerHTML = '<option value="">選んでください</option>'
+      + YOKO_FOOD.map(function(b){
+          var used = ids.some(function(oid){ return oid!==id && sel[oid]===b.id; });
+          if(used) return '';
+          return '<option value="'+b.id+'"'+(cur===b.id?' selected':'')+'>'+b.name+'</option>';
+        }).join('');
+  });
+}
+
+function initYokoVote(){
+  var grid = document.getElementById('yoko-food-list');
+  if(!grid) return;
+  grid.innerHTML = YOKO_FOOD.map(function(b){
+    return '<div class="vote-photo-item">'
+      + '<img src="'+b.img+'" loading="lazy" alt="'+b.name+'">'
+      + '<div class="vote-photo-name">'+b.name+'</div>'
+      + '<div class="vote-photo-sub">'+b.sub+'</div>'
+      + (b.menu ? '<a href="'+b.menu+'" target="_blank" onclick="event.stopPropagation()" class="vote-menu-btn">📋 メニュー表はこちら</a>' : '')
+      + '</div>';
+  }).join('');
+  var opts = '<option value="">選んでください</option>'
+    + YOKO_FOOD.map(function(b){ return '<option value="'+b.id+'">'+b.name+'</option>'; }).join('');
+  ['y-1st','y-2nd','y-3rd'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el){ el.innerHTML = opts; el.addEventListener('change', updateYokoSelects); }
+  });
+  renderYokoResults();
+}
+
+function submitYokoVote(){
+  var f1 = document.getElementById('y-1st').value;
+  var f2 = document.getElementById('y-2nd').value;
+  var f3 = document.getElementById('y-3rd').value;
+  if(!f1||!f2||!f3){ alert('第1〜3希望をすべて選んでください'); return; }
+  if(f1===f2||f1===f3||f2===f3){ alert('第1〜3希望はそれぞれ別のお店を選んでください'); return; }
+  var votes = loadYokoVotes();
+  votes.push({f1:f1, f2:f2, f3:f3});
+  saveYokoVotes(votes);
+  ['y-1st','y-2nd','y-3rd'].forEach(function(id){ document.getElementById(id).value=''; });
+  updateYokoSelects();
+  renderYokoResults();
+  alert('投票ありがとう！ 次の人にバトンタッチ 📱');
+}
+
+function renderYokoResults(){
+  var votes = loadYokoVotes();
+  var tag = document.getElementById('yoko-count-tag');
+  if(tag){
+    var n=votes.length;
+    tag.textContent = n>0 ? '📊 '+n+'票' : '投票してね';
+    tag.className = 'tag '+(n>0?'tag-info':'tag-warn');
+  }
+  var el = document.getElementById('yoko-results');
+  if(!el) return;
+  if(votes.length===0){ el.innerHTML=''; return; }
+  var scores = {};
+  YOKO_FOOD.forEach(function(b){ scores[b.id]=0; });
+  votes.forEach(function(v){ scores[v.f1]=(scores[v.f1]||0)+3; scores[v.f2]=(scores[v.f2]||0)+2; scores[v.f3]=(scores[v.f3]||0)+1; });
+  var sorted = YOKO_FOOD.filter(function(b){ return scores[b.id]>0; }).sort(function(a,b){ return scores[b.id]-scores[a.id]; });
+  var maxScore = sorted.length ? scores[sorted[0].id] : 1;
+  var medals = ['🥇','🥈','🥉','4','5'];
+  var barsHtml = sorted.map(function(b,i){
+    var pct = Math.round(scores[b.id]/maxScore*100);
+    return '<div class="result-item"><div class="result-medal">'+medals[i]+'</div>'
+      + '<div class="result-bar-wrap"><div class="result-name">'+b.name+'</div>'
+      + '<div class="result-bar" style="width:'+pct+'%;background:var(--d2)"></div></div>'
+      + '<div class="result-pts">'+scores[b.id]+'pt</div></div>';
+  }).join('');
+  el.innerHTML = '<div class="vote-result-box"><div class="vote-hd" style="margin-top:0">📊 集計結果（'+votes.length+'票）</div>'
+    + barsHtml
+    + '<button class="vote-reset-btn" onclick="clearYokoVotes()">🗑 投票をリセット</button></div>';
+}
+function clearYokoVotes(){
+  if(confirm('食べ物投票をリセットしますか？')){ localStorage.removeItem('yokochoVotes2026'); renderYokoResults(); }
+}
+
+// ======= クルーズ投票 =======
+var CRUISE_OPT = [
+  { id:'cr1', name:'賢島エスパーニャクルーズ', img:'ise_photos/cruise.jpg',
+    desc:'英虞湾を約50分周遊。3本マスト帆船「エスペランサ」', info:'Day3 賢島港発' },
+  { id:'cr2', name:'鳥羽湾めぐりとイルカ島',
+    img:'https://shima-marineleisure.com/wordpress/wp-content/themes/marine/images/toba/mainimg_link.webp',
+    desc:'鳥羽湾とイルカ島を周遊。Day1の水族館と組み合わせ可', info:'Day1 鳥羽マリンターミナル発' }
+];
+function loadCruiseVotes(){ return JSON.parse(localStorage.getItem('cruiseVote2026')||'[]'); }
+function saveCruiseVotes(v){ localStorage.setItem('cruiseVote2026', JSON.stringify(v)); }
+function initCruiseVote(){
+  var list = document.getElementById('cruise-list');
+  if(!list) return;
+  list.innerHTML = CRUISE_OPT.map(function(c){
+    return '<div class="vote-photo-item">'
+      +'<div class="vote-photo-img"><img src="'+c.img+'" loading="lazy" decoding="async" alt="'+c.name+'"></div>'
+      +'<div class="vote-photo-name">'+c.name+'</div>'
+      +'<div style="font-size:10px;color:var(--sub);padding:1px 6px 3px;line-height:1.4">'+c.desc+'</div>'
+      +'<div style="font-size:10px;color:var(--gold);font-weight:700;padding:0 6px 6px">'+c.info+'</div>'
+      +'</div>';
+  }).join('');
+  renderCruiseResults();
+}
+function submitCruiseVote(){
+  var choice = document.getElementById('cv-choice').value;
+  if(!choice){ alert('クルーズを選んでね'); return; }
+  var votes = loadCruiseVotes();
+  votes.push({choice:choice});
+  saveCruiseVotes(votes);
+  renderCruiseResults();
+  document.getElementById('cv-choice').value='';
+}
+function renderCruiseResults(){
+  var votes = loadCruiseVotes();
+  var tag = document.getElementById('cruise-count-tag');
+  if(tag){
+    var n=votes.length;
+    tag.textContent = n>0 ? '📊 '+n+'票' : '投票してね';
+    tag.className = 'tag '+(n>0?'tag-info':'tag-warn');
+  }
+  var res = document.getElementById('cruise-results');
+  if(!res) return;
+  if(!votes.length){ res.innerHTML=''; return; }
+  var counts={}; CRUISE_OPT.forEach(function(c){ counts[c.id]=0; });
+  votes.forEach(function(v){ if(counts[v.choice]!==undefined) counts[v.choice]++; });
+  var html='<div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--sub);margin-bottom:6px">📊 投票結果（'+votes.length+'票）</div>';
+  CRUISE_OPT.forEach(function(c){
+    var n=counts[c.id]||0;
+    var pct=votes.length?Math.round(n/votes.length*100):0;
+    html+='<div style="margin-bottom:8px">'
+      +'<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px">'+c.name+'　<span style="color:var(--d3)">'+n+'票</span></div>'
+      +'<div style="background:var(--border);border-radius:4px;height:6px;margin-top:4px"><div style="background:var(--d3);border-radius:4px;height:6px;width:'+pct+'%"></div></div>'
+      +'</div>';
+  });
+  res.innerHTML=html;
+}
+// ======= 名古屋解散後 投票 =======
+var NAGOYA_OPT = [
+  { id:'n1', ico:'🏯', name:'名古屋観光＋宿泊', desc:'名古屋城・熱田神宮・名古屋めし。そのまま名古屋に泊まる' },
+  { id:'n2', ico:'🗻', name:'静岡移動＋宿泊',   desc:'富士山・静岡グルメを堪能。静岡に移動して泊まる' },
+  { id:'n3', ico:'🚄', name:'品川まで移動',      desc:'新幹線でそのまま帰路へ。品川まで移動して解散' }
+];
+function loadNagoyaVotes(){ return JSON.parse(localStorage.getItem('nagoyaVote2026')||'[]'); }
+function saveNagoyaVotes(v){ localStorage.setItem('nagoyaVote2026', JSON.stringify(v)); }
+function initNagoyaVote(){
+  var list = document.getElementById('nagoya-list');
+  if(!list) return;
+  list.innerHTML = NAGOYA_OPT.map(function(o){
+    return '<div style="flex:1;min-width:0;background:var(--cream);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px;text-align:center">'
+      +'<div style="font-size:28px;margin-bottom:4px">'+o.ico+'</div>'
+      +'<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3">'+o.name+'</div>'
+      +'<div style="font-size:9px;color:var(--sub);line-height:1.4">'+o.desc+'</div>'
+      +'</div>';
+  }).join('');
+  renderNagoyaResults();
+}
+function submitNagoyaVote(){
+  var choice = document.getElementById('nv-choice').value;
+  if(!choice){ alert('プランを選んでね'); return; }
+  var votes = loadNagoyaVotes();
+  votes.push({choice:choice});
+  saveNagoyaVotes(votes);
+  renderNagoyaResults();
+  document.getElementById('nv-choice').value='';
+}
+function renderNagoyaResults(){
+  var votes = loadNagoyaVotes();
+  var tag = document.getElementById('nagoya-count-tag');
+  if(tag){
+    var n=votes.length;
+    tag.textContent = n>0 ? '📊 '+n+'票' : '投票してね';
+    tag.className = 'tag '+(n>0?'tag-info':'tag-warn');
+  }
+  var res = document.getElementById('nagoya-results');
+  if(!res) return;
+  if(!votes.length){ res.innerHTML=''; return; }
+  var counts={}; NAGOYA_OPT.forEach(function(o){ counts[o.id]=0; });
+  votes.forEach(function(v){ if(counts[v.choice]!==undefined) counts[v.choice]++; });
+  var html='<div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--sub);margin-bottom:6px">📊 投票結果（'+votes.length+'票）</div>';
+  NAGOYA_OPT.forEach(function(o){
+    var n=counts[o.id]||0;
+    var pct=votes.length?Math.round(n/votes.length*100):0;
+    html+='<div style="margin-bottom:8px">'
+      +'<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px">'+o.ico+' '+o.name+'　<span style="color:var(--d1)">'+n+'票</span></div>'
+      +'<div style="background:var(--border);border-radius:4px;height:6px;margin-top:4px"><div style="background:var(--d1);border-radius:4px;height:6px;width:'+pct+'%"></div></div>'
+      +'</div>';
+  });
+  res.innerHTML=html;
+}
+document.addEventListener('DOMContentLoaded', function(){ initVote(); initYokoVote(); initCruiseVote(); initNagoyaVote(); });
+</script>
+</body>
+</html>
