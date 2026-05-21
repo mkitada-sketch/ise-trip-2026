@@ -1121,6 +1121,19 @@ document.querySelectorAll('.tab').forEach(function(tab){
 });
 function toggle(card){ card.classList.toggle('open'); }
 
+// ===== FIREBASE =====
+var FB = 'https://ise-trip-2026-default-rtdb.asia-southeast1.firebasedatabase.app';
+async function fbGet(key){
+  try{ var r=await fetch(FB+'/'+key+'.json'); var d=await r.json(); return d?Object.values(d):[]; }
+  catch(e){ return []; }
+}
+async function fbAdd(key,val){
+  await fetch(FB+'/'+key+'.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(val)});
+}
+async function fbClear(key){
+  await fetch(FB+'/'+key+'.json',{method:'DELETE'});
+}
+
 // ===== BENTO VOTE =====
 var _JR = 'https://shopping.jreast.co.jp/order/html/upload/save_image/shop/17401/product/';
 var BENTO = [
@@ -1168,8 +1181,7 @@ var BENTO = [
   { id:'b42', name:'国技館やきとり',                img:_JR+'6377/0922123538_68d0c40a95c97.jpg' }
 ];
 
-function loadVotes(){ return JSON.parse(localStorage.getItem('bentoVotes2026')||'[]'); }
-function saveVotes(v){ localStorage.setItem('bentoVotes2026', JSON.stringify(v)); }
+function loadVotes(){ return fbGet('bentoVotes2026'); }
 
 function updateBentoSelects(){
   var ids = ['v-1st','v-2nd','v-3rd'];
@@ -1205,23 +1217,21 @@ function initVote(){
   renderVoteResults();
 }
 
-function submitVote(){
+async function submitVote(){
   var f1 = document.getElementById('v-1st').value;
   var f2 = document.getElementById('v-2nd').value;
   var f3 = document.getElementById('v-3rd').value;
   if(!f1||!f2||!f3){ alert('第1〜3希望をすべて選んでください'); return; }
   if(f1===f2||f1===f3||f2===f3){ alert('第1〜3希望はそれぞれ別のお弁当を選んでください'); return; }
-  var votes = loadVotes();
-  votes.push({f1:f1, f2:f2, f3:f3});
-  saveVotes(votes);
+  await fbAdd('bentoVotes2026', {f1:f1, f2:f2, f3:f3});
   ['v-1st','v-2nd','v-3rd'].forEach(function(id){ document.getElementById(id).value=''; });
   updateBentoSelects();
-  renderVoteResults();
+  await renderVoteResults();
   alert('投票ありがとう！ 次の人にバトンタッチ 📱');
 }
 
-function renderVoteResults(){
-  var votes = loadVotes();
+async function renderVoteResults(){
+  var votes = await loadVotes();
   var tag = document.getElementById('vote-count-tag');
   if(tag){
     var n=votes.length;
@@ -1248,8 +1258,8 @@ function renderVoteResults(){
     + barsHtml
     + '<button class="vote-reset-btn" onclick="clearVotes()">🗑 投票をリセット</button></div>';
 }
-function clearVotes(){
-  if(confirm('投票をすべてリセットしますか？')){ localStorage.removeItem('bentoVotes2026'); renderVoteResults(); }
+async function clearVotes(){
+  if(confirm('投票をすべてリセットしますか？')){ await fbClear('bentoVotes2026'); await renderVoteResults(); }
 }
 
 // ===== YOKO FOOD VOTE =====
@@ -1261,8 +1271,7 @@ var YOKO_FOOD = [
   { id:'y5', name:'とりぶん倭',  sub:'伊勢赤どり唐揚げ',       img:'https://okageyokocho.com/main/wp-content/uploads/2021/08/264.jpg',                menu:'https://okageyokocho.com/main/wp-content/uploads/2026/02/2025.12%20%E6%AD%A3%E6%9C%88%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf' }
 ];
 
-function loadYokoVotes(){ return JSON.parse(localStorage.getItem('yokochoVotes2026')||'[]'); }
-function saveYokoVotes(v){ localStorage.setItem('yokochoVotes2026', JSON.stringify(v)); }
+function loadYokoVotes(){ return fbGet('yokochoVotes2026'); }
 
 function updateYokoSelects(){
   var ids = ['y-1st','y-2nd','y-3rd'];
@@ -1300,23 +1309,21 @@ function initYokoVote(){
   renderYokoResults();
 }
 
-function submitYokoVote(){
+async function submitYokoVote(){
   var f1 = document.getElementById('y-1st').value;
   var f2 = document.getElementById('y-2nd').value;
   var f3 = document.getElementById('y-3rd').value;
   if(!f1||!f2||!f3){ alert('第1〜3希望をすべて選んでください'); return; }
   if(f1===f2||f1===f3||f2===f3){ alert('第1〜3希望はそれぞれ別のお店を選んでください'); return; }
-  var votes = loadYokoVotes();
-  votes.push({f1:f1, f2:f2, f3:f3});
-  saveYokoVotes(votes);
+  await fbAdd('yokochoVotes2026', {f1:f1, f2:f2, f3:f3});
   ['y-1st','y-2nd','y-3rd'].forEach(function(id){ document.getElementById(id).value=''; });
   updateYokoSelects();
-  renderYokoResults();
+  await renderYokoResults();
   alert('投票ありがとう！ 次の人にバトンタッチ 📱');
 }
 
-function renderYokoResults(){
-  var votes = loadYokoVotes();
+async function renderYokoResults(){
+  var votes = await loadYokoVotes();
   var tag = document.getElementById('yoko-count-tag');
   if(tag){
     var n=votes.length;
@@ -1343,8 +1350,8 @@ function renderYokoResults(){
     + barsHtml
     + '<button class="vote-reset-btn" onclick="clearYokoVotes()">🗑 投票をリセット</button></div>';
 }
-function clearYokoVotes(){
-  if(confirm('食べ物投票をリセットしますか？')){ localStorage.removeItem('yokochoVotes2026'); renderYokoResults(); }
+async function clearYokoVotes(){
+  if(confirm('食べ物投票をリセットしますか？')){ await fbClear('yokochoVotes2026'); await renderYokoResults(); }
 }
 
 // ======= クルーズ投票 =======
@@ -1355,9 +1362,8 @@ var CRUISE_OPT = [
     img:'https://shima-marineleisure.com/wordpress/wp-content/themes/marine/images/toba/mainimg_link.webp',
     desc:'鳥羽湾とイルカ島を周遊。Day1の水族館と組み合わせ可', info:'Day1 鳥羽マリンターミナル発' }
 ];
-function loadCruiseVotes(){ return JSON.parse(localStorage.getItem('cruiseVote2026')||'[]'); }
-function saveCruiseVotes(v){ localStorage.setItem('cruiseVote2026', JSON.stringify(v)); }
-function initCruiseVote(){
+function loadCruiseVotes(){ return fbGet('cruiseVote2026'); }
+async function initCruiseVote(){
   var list = document.getElementById('cruise-list');
   if(!list) return;
   list.innerHTML = CRUISE_OPT.map(function(c){
@@ -1370,17 +1376,15 @@ function initCruiseVote(){
   }).join('');
   renderCruiseResults();
 }
-function submitCruiseVote(){
+async function submitCruiseVote(){
   var choice = document.getElementById('cv-choice').value;
   if(!choice){ alert('クルーズを選んでね'); return; }
-  var votes = loadCruiseVotes();
-  votes.push({choice:choice});
-  saveCruiseVotes(votes);
-  renderCruiseResults();
+  await fbAdd('cruiseVote2026', {choice:choice});
   document.getElementById('cv-choice').value='';
+  await renderCruiseResults();
 }
-function renderCruiseResults(){
-  var votes = loadCruiseVotes();
+async function renderCruiseResults(){
+  var votes = await loadCruiseVotes();
   var tag = document.getElementById('cruise-count-tag');
   if(tag){
     var n=votes.length;
@@ -1409,9 +1413,8 @@ var NAGOYA_OPT = [
   { id:'n2', ico:'🗻', name:'静岡移動＋宿泊',   desc:'富士山・静岡グルメを堪能。静岡に移動して泊まる' },
   { id:'n3', ico:'🚄', name:'品川まで移動',      desc:'新幹線でそのまま帰路へ。品川まで移動して解散' }
 ];
-function loadNagoyaVotes(){ return JSON.parse(localStorage.getItem('nagoyaVote2026')||'[]'); }
-function saveNagoyaVotes(v){ localStorage.setItem('nagoyaVote2026', JSON.stringify(v)); }
-function initNagoyaVote(){
+function loadNagoyaVotes(){ return fbGet('nagoyaVote2026'); }
+async function initNagoyaVote(){
   var list = document.getElementById('nagoya-list');
   if(!list) return;
   list.innerHTML = NAGOYA_OPT.map(function(o){
@@ -1423,17 +1426,15 @@ function initNagoyaVote(){
   }).join('');
   renderNagoyaResults();
 }
-function submitNagoyaVote(){
+async function submitNagoyaVote(){
   var choice = document.getElementById('nv-choice').value;
   if(!choice){ alert('プランを選んでね'); return; }
-  var votes = loadNagoyaVotes();
-  votes.push({choice:choice});
-  saveNagoyaVotes(votes);
-  renderNagoyaResults();
+  await fbAdd('nagoyaVote2026', {choice:choice});
   document.getElementById('nv-choice').value='';
+  await renderNagoyaResults();
 }
-function renderNagoyaResults(){
-  var votes = loadNagoyaVotes();
+async function renderNagoyaResults(){
+  var votes = await loadNagoyaVotes();
   var tag = document.getElementById('nagoya-count-tag');
   if(tag){
     var n=votes.length;
