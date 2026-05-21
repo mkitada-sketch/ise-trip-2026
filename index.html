@@ -86,8 +86,8 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
 .tag-warn{background:#FFF9EC;color:#9A6010}
 
 /* CARD CHEV — 詳細ボタン */
-.card-chev{flex-shrink:0;background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:5px 11px;font-size:0;font-weight:700;white-space:nowrap;align-self:flex-start;margin-top:2px;transition:background .2s,border-color .2s}
-.card-chev::after{content:'詳細 ▾';font-size:10px;color:var(--sub)}
+.card-chev{flex-shrink:0;background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:5px 13px;font-size:0;font-weight:700;white-space:nowrap;align-self:flex-start;margin-top:2px;transition:background .2s,border-color .2s,color .2s}
+.card-chev::after{content:'詳細 ▾';font-size:11px;color:var(--text);font-weight:700}
 .card.open .card-chev{background:var(--d1-bg);border-color:var(--d1)}
 .card.open .card-chev::after{content:'閉じる ✕';color:var(--d1)}
 
@@ -200,6 +200,11 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
 .result-pts{font-size:12px;color:var(--gold);font-weight:700;flex-shrink:0}
 .vote-reset-btn{width:100%;padding:9px;margin-top:12px;background:none;border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit}
 
+/* VOTE RANK BUTTONS */
+.vote-rank-btns{display:flex;gap:3px;padding:3px 4px 6px}
+.vote-rank-btn{flex:1;padding:4px 2px;border:1.5px solid var(--border);border-radius:6px;font-size:9px;font-weight:700;color:var(--muted);background:var(--white);cursor:pointer;font-family:inherit;line-height:1.3;text-align:center;transition:background .15s,color .15s,border-color .15s}
+.vote-rank-btn:active{opacity:.7}
+
 /* VOTE CARD — 投票アコーディオン */
 .vote-card .card-chev{background:var(--d1-bg);border-color:var(--d1)}
 .vote-card .card-chev::after{content:'投票する ▾';font-size:10px;color:var(--d1);font-weight:700}
@@ -261,7 +266,7 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
   <div class="day-note">盛岡組の東京着に合わせて座間組が東京駅で待ち合わせ。のぞみで名古屋へ、ミニバンで鳥羽の戸田家へ。</div>
 
   <!-- 駅弁投票 -->
-  <div class="card open vote-card" onclick="toggle(this)" style="margin-bottom:20px">
+  <div class="card vote-card" onclick="toggle(this)" style="margin-bottom:20px">
     <div class="card-hd">
       <div class="card-ico bg-warn">🍱</div>
       <div class="card-body">
@@ -277,21 +282,9 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
     <div class="card-dt" onclick="event.stopPropagation()">
       <div class="vote-box" style="padding:0 0 4px">
         <div class="vote-hd">🍱 候補お弁当（駅弁屋 踊）</div>
+        <div class="note" style="margin-bottom:10px;padding:9px 12px;font-size:11px">※事前予約しておきます。手間じゃないから安心してね！</div>
         <div class="vote-photo-grid" id="bento-list"></div>
-        <div class="vote-form-box">
-          <div class="vote-hd" style="margin-top:0;margin-bottom:12px">📝 あなたの希望を選んで</div>
-          <div class="vote-field">
-            <label>第1希望 ⭐</label>
-            <select id="v-1st"></select>
-          </div>
-          <div class="vote-field">
-            <label>第2希望 ☆</label>
-            <select id="v-2nd"></select>
-          </div>
-          <div class="vote-field">
-            <label>第3希望 ☆</label>
-            <select id="v-3rd"></select>
-          </div>
+        <div style="padding:0 0 14px">
           <button class="vote-submit-btn" onclick="submitVote();event.stopPropagation()">投票する 👍</button>
         </div>
         <div id="vote-results"></div>
@@ -525,13 +518,13 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
   <div class="day-note">9月週末は混雑します。朝イチの外宮から始めて、内宮到着を11:30頃に合わせると動きやすい。内宮は正宮＋荒祭宮に絞るのがおすすめ。みんなのペースでゆっくり楽しもう。</div>
 
   <!-- おかげ横丁お店投票 -->
-  <div class="card open vote-card vote-card-d2" onclick="toggle(this)" style="margin-bottom:20px">
+  <div class="card vote-card vote-card-d2" onclick="toggle(this)" style="margin-bottom:20px">
     <div class="card-hd">
       <div class="card-ico bg-d2">🏮</div>
       <div class="card-body">
         <div class="card-time">事前にみんなで</div>
         <div class="card-name">おかげ横丁 お店投票</div>
-        <div class="card-brief">もえが参考にします。行きたいお店を第3希望まで選んでね</div>
+        <div class="card-brief">お昼ご飯どこがいいか選んでね、予約しておきます！</div>
         <div class="card-tags">
           <span class="tag tag-warn" id="yoko-count-tag">⚠️ 要投票 0 / 5名</span>
         </div>
@@ -542,20 +535,7 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
       <div class="vote-box" style="padding:0 0 4px">
         <div class="vote-hd">🏮 候補お店（おかげ横丁）</div>
         <div class="vote-photo-grid" id="yoko-food-list"></div>
-        <div class="vote-form-box">
-          <div class="vote-hd" style="margin-top:0;margin-bottom:12px">📝 あなたの希望を選んで</div>
-          <div class="vote-field">
-            <label>第1希望 ⭐</label>
-            <select id="y-1st"></select>
-          </div>
-          <div class="vote-field">
-            <label>第2希望 ☆</label>
-            <select id="y-2nd"></select>
-          </div>
-          <div class="vote-field">
-            <label>第3希望 ☆</label>
-            <select id="y-3rd"></select>
-          </div>
+        <div style="padding:0 0 14px">
           <button class="vote-submit-btn" style="background:var(--d2)" onclick="submitYokoVote();event.stopPropagation()">投票する 👍</button>
         </div>
         <div id="yoko-results"></div>
@@ -782,7 +762,7 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
   <div class="day-note">クルーズは先着乗船制なので15分前には集合を。スペイン村のフラメンコショーは要予約（¥700）。名古屋解散後のプランも投票で決めよう！</div>
 
   <!-- クルーズ投票 -->
-  <div class="card open vote-card vote-card-d3" onclick="toggle(this)" style="margin-bottom:20px">
+  <div class="card vote-card vote-card-d3" onclick="toggle(this)" style="margin-bottom:20px">
     <div class="card-hd">
       <div class="card-ico bg-d3">🚢</div>
       <div class="card-body">
@@ -799,12 +779,7 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
       <div class="vote-box" style="padding:0 0 4px">
         <div class="vote-hd">🚢 候補クルーズ（2択）</div>
         <div class="vote-photo-grid" id="cruise-list"></div>
-        <div class="vote-form-box">
-          <select class="vote-select" id="cv-choice">
-            <option value="">── クルーズを選ぶ ──</option>
-            <option value="cr1">賢島エスパーニャクルーズ</option>
-            <option value="cr2">鳥羽湾めぐりとイルカ島</option>
-          </select>
+        <div style="padding:0 0 14px">
           <button class="vote-submit-btn" style="background:var(--d3)" onclick="submitCruiseVote();event.stopPropagation()">投票する 👍</button>
         </div>
         <div id="cruise-results"></div>
@@ -992,7 +967,7 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
     <!-- 名古屋解散後 投票 -->
     <div class="tl-item spot">
       <div class="tl-dot"></div>
-      <div class="card open vote-card" onclick="toggle(this)" style="margin-bottom:12px">
+      <div class="card vote-card" onclick="toggle(this)" style="margin-bottom:12px">
         <div class="card-hd">
           <div class="card-ico bg-d1">🗳️</div>
           <div class="card-body">
@@ -1009,13 +984,7 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
           <div class="vote-box" style="padding:0 0 4px">
             <div class="vote-hd">🗺️ 3つのプランから選んでね</div>
             <div style="display:flex;gap:6px;margin-bottom:12px" id="nagoya-list"></div>
-            <div class="vote-form-box">
-              <select class="vote-select" id="nv-choice">
-                <option value="">── プランを選ぶ ──</option>
-                <option value="n1">🏯 名古屋観光＋宿泊</option>
-                <option value="n2">🗻 静岡移動＋宿泊</option>
-                <option value="n3">🚄 品川まで移動</option>
-              </select>
+            <div style="padding:0 0 14px">
               <button class="vote-submit-btn" onclick="submitNagoyaVote();event.stopPropagation()">投票する 👍</button>
             </div>
             <div id="nagoya-results"></div>
@@ -1181,53 +1150,59 @@ var BENTO = [
   { id:'b42', name:'国技館やきとり',                img:_JR+'6377/0922123538_68d0c40a95c97.jpg' }
 ];
 
-function loadVotes(){ return fbGet('bentoVotes2026'); }
+var bentoSel = {r1:null, r2:null, r3:null};
 
-function updateBentoSelects(){
-  var ids = ['v-1st','v-2nd','v-3rd'];
-  var sel = {};
-  ids.forEach(function(id){ var v=document.getElementById(id); if(v) sel[id]=v.value; });
-  ids.forEach(function(id){
-    var el = document.getElementById(id); if(!el) return;
-    var cur = sel[id];
-    el.innerHTML = '<option value="">選んでください</option>'
-      + BENTO.map(function(b){
-          var used = ids.some(function(oid){ return oid!==id && sel[oid]===b.id; });
-          if(used) return '';
-          return '<option value="'+b.id+'"'+(cur===b.id?' selected':'')+'>'+b.name+'</option>';
-        }).join('');
+function setBentoRank(bid, rank){
+  if(bentoSel['r'+rank]===bid){ bentoSel['r'+rank]=null; }
+  else {
+    if(bentoSel.r1===bid) bentoSel.r1=null;
+    if(bentoSel.r2===bid) bentoSel.r2=null;
+    if(bentoSel.r3===bid) bentoSel.r3=null;
+    bentoSel['r'+rank]=bid;
+  }
+  renderBentoButtons();
+}
+function renderBentoButtons(){
+  var labels=['⭐1位','☆2位','☆3位'];
+  BENTO.forEach(function(b){
+    [1,2,3].forEach(function(r){
+      var btn=document.getElementById('bb-'+b.id+'-r'+r);
+      if(!btn) return;
+      var isSel=bentoSel['r'+r]===b.id;
+      btn.style.borderColor=isSel?'var(--d1)':'var(--border)';
+      btn.style.color=isSel?'var(--d1)':'var(--muted)';
+      btn.style.background=isSel?'var(--d1-bg)':'var(--white)';
+    });
   });
 }
 
-function initVote(){
+function loadVotes(){ return fbGet('bentoVotes2026'); }
+
+async function initVote(){
   var grid = document.getElementById('bento-list');
   if(!grid) return;
   grid.innerHTML = BENTO.map(function(b){
     return '<div class="vote-photo-item">'
       + '<img src="'+b.img+'" loading="lazy" alt="'+b.name+'">'
       + '<div class="vote-photo-name">'+b.name+'</div>'
+      + '<div class="vote-rank-btns">'
+      + '<button id="bb-'+b.id+'-r1" class="vote-rank-btn" onclick="setBentoRank(\''+b.id+'\',1)">⭐1位</button>'
+      + '<button id="bb-'+b.id+'-r2" class="vote-rank-btn" onclick="setBentoRank(\''+b.id+'\',2)">☆2位</button>'
+      + '<button id="bb-'+b.id+'-r3" class="vote-rank-btn" onclick="setBentoRank(\''+b.id+'\',3)">☆3位</button>'
+      + '</div>'
       + '</div>';
   }).join('');
-  var opts = '<option value="">選んでください</option>'
-    + BENTO.map(function(b){ return '<option value="'+b.id+'">'+b.name+'</option>'; }).join('');
-  ['v-1st','v-2nd','v-3rd'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el){ el.innerHTML = opts; el.addEventListener('change', updateBentoSelects); }
-  });
-  renderVoteResults();
+  await renderVoteResults();
 }
 
 async function submitVote(){
-  var f1 = document.getElementById('v-1st').value;
-  var f2 = document.getElementById('v-2nd').value;
-  var f3 = document.getElementById('v-3rd').value;
+  var f1=bentoSel.r1, f2=bentoSel.r2, f3=bentoSel.r3;
   if(!f1||!f2||!f3){ alert('第1〜3希望をすべて選んでください'); return; }
-  if(f1===f2||f1===f3||f2===f3){ alert('第1〜3希望はそれぞれ別のお弁当を選んでください'); return; }
   await fbAdd('bentoVotes2026', {f1:f1, f2:f2, f3:f3});
-  ['v-1st','v-2nd','v-3rd'].forEach(function(id){ document.getElementById(id).value=''; });
-  updateBentoSelects();
+  bentoSel={r1:null,r2:null,r3:null};
+  renderBentoButtons();
   await renderVoteResults();
-  alert('投票ありがとう！ 次の人にバトンタッチ 📱');
+  alert('投票ありがとう！');
 }
 
 async function renderVoteResults(){
@@ -1271,25 +1246,34 @@ var YOKO_FOOD = [
   { id:'y5', name:'とりぶん倭',  sub:'伊勢赤どり唐揚げ',       img:'https://okageyokocho.com/main/wp-content/uploads/2021/08/264.jpg',                menu:'https://okageyokocho.com/main/wp-content/uploads/2026/02/2025.12%20%E6%AD%A3%E6%9C%88%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf' }
 ];
 
-function loadYokoVotes(){ return fbGet('yokochoVotes2026'); }
+var yokoSel = {r1:null, r2:null, r3:null};
 
-function updateYokoSelects(){
-  var ids = ['y-1st','y-2nd','y-3rd'];
-  var sel = {};
-  ids.forEach(function(id){ var v=document.getElementById(id); if(v) sel[id]=v.value; });
-  ids.forEach(function(id){
-    var el = document.getElementById(id); if(!el) return;
-    var cur = sel[id];
-    el.innerHTML = '<option value="">選んでください</option>'
-      + YOKO_FOOD.map(function(b){
-          var used = ids.some(function(oid){ return oid!==id && sel[oid]===b.id; });
-          if(used) return '';
-          return '<option value="'+b.id+'"'+(cur===b.id?' selected':'')+'>'+b.name+'</option>';
-        }).join('');
+function setYokoRank(bid, rank){
+  if(yokoSel['r'+rank]===bid){ yokoSel['r'+rank]=null; }
+  else {
+    if(yokoSel.r1===bid) yokoSel.r1=null;
+    if(yokoSel.r2===bid) yokoSel.r2=null;
+    if(yokoSel.r3===bid) yokoSel.r3=null;
+    yokoSel['r'+rank]=bid;
+  }
+  renderYokoButtons();
+}
+function renderYokoButtons(){
+  YOKO_FOOD.forEach(function(b){
+    [1,2,3].forEach(function(r){
+      var btn=document.getElementById('yb-'+b.id+'-r'+r);
+      if(!btn) return;
+      var isSel=yokoSel['r'+r]===b.id;
+      btn.style.borderColor=isSel?'var(--d2)':'var(--border)';
+      btn.style.color=isSel?'var(--d2)':'var(--muted)';
+      btn.style.background=isSel?'var(--d2-bg)':'var(--white)';
+    });
   });
 }
 
-function initYokoVote(){
+function loadYokoVotes(){ return fbGet('yokochoVotes2026'); }
+
+async function initYokoVote(){
   var grid = document.getElementById('yoko-food-list');
   if(!grid) return;
   grid.innerHTML = YOKO_FOOD.map(function(b){
@@ -1298,28 +1282,24 @@ function initYokoVote(){
       + '<div class="vote-photo-name">'+b.name+'</div>'
       + '<div class="vote-photo-sub">'+b.sub+'</div>'
       + (b.menu ? '<a href="'+b.menu+'" target="_blank" onclick="event.stopPropagation()" class="vote-menu-btn">📋 メニュー表はこちら</a>' : '')
+      + '<div class="vote-rank-btns">'
+      + '<button id="yb-'+b.id+'-r1" class="vote-rank-btn" onclick="setYokoRank(\''+b.id+'\',1)">⭐1位</button>'
+      + '<button id="yb-'+b.id+'-r2" class="vote-rank-btn" onclick="setYokoRank(\''+b.id+'\',2)">☆2位</button>'
+      + '<button id="yb-'+b.id+'-r3" class="vote-rank-btn" onclick="setYokoRank(\''+b.id+'\',3)">☆3位</button>'
+      + '</div>'
       + '</div>';
   }).join('');
-  var opts = '<option value="">選んでください</option>'
-    + YOKO_FOOD.map(function(b){ return '<option value="'+b.id+'">'+b.name+'</option>'; }).join('');
-  ['y-1st','y-2nd','y-3rd'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el){ el.innerHTML = opts; el.addEventListener('change', updateYokoSelects); }
-  });
-  renderYokoResults();
+  await renderYokoResults();
 }
 
 async function submitYokoVote(){
-  var f1 = document.getElementById('y-1st').value;
-  var f2 = document.getElementById('y-2nd').value;
-  var f3 = document.getElementById('y-3rd').value;
+  var f1=yokoSel.r1, f2=yokoSel.r2, f3=yokoSel.r3;
   if(!f1||!f2||!f3){ alert('第1〜3希望をすべて選んでください'); return; }
-  if(f1===f2||f1===f3||f2===f3){ alert('第1〜3希望はそれぞれ別のお店を選んでください'); return; }
   await fbAdd('yokochoVotes2026', {f1:f1, f2:f2, f3:f3});
-  ['y-1st','y-2nd','y-3rd'].forEach(function(id){ document.getElementById(id).value=''; });
-  updateYokoSelects();
+  yokoSel={r1:null,r2:null,r3:null};
+  renderYokoButtons();
   await renderYokoResults();
-  alert('投票ありがとう！ 次の人にバトンタッチ 📱');
+  alert('投票ありがとう！');
 }
 
 async function renderYokoResults(){
@@ -1357,31 +1337,55 @@ async function clearYokoVotes(){
 // ======= クルーズ投票 =======
 var CRUISE_OPT = [
   { id:'cr1', name:'賢島エスパーニャクルーズ', img:'ise_photos/cruise.jpg',
-    desc:'英虞湾を約50分周遊。3本マスト帆船「エスペランサ」', info:'Day3 賢島港発' },
+    desc:'英虞湾を約50分周遊。3本マスト帆船「エスペランサ」', info:'賢島港発',
+    url:'https://shima-marineleisure.com/espana' },
   { id:'cr2', name:'鳥羽湾めぐりとイルカ島',
     img:'https://shima-marineleisure.com/wordpress/wp-content/themes/marine/images/toba/mainimg_link.webp',
-    desc:'鳥羽湾とイルカ島を周遊。Day1の水族館と組み合わせ可', info:'Day1 鳥羽マリンターミナル発' }
+    desc:'鳥羽湾とイルカ島を周遊。水族館と組み合わせ可', info:'鳥羽マリンターミナル発',
+    url:'https://shima-marineleisure.com/toba' }
 ];
+
+var cruiseSel = null;
+function setCruise(id){
+  cruiseSel=(cruiseSel===id)?null:id;
+  renderCruiseButtons();
+}
+function renderCruiseButtons(){
+  CRUISE_OPT.forEach(function(c){
+    var btn=document.getElementById('cb-'+c.id);
+    if(!btn) return;
+    var isSel=cruiseSel===c.id;
+    btn.textContent=isSel?'✅ 選択中':'選ぶ';
+    btn.style.background=isSel?'var(--d3)':'var(--white)';
+    btn.style.color=isSel?'#fff':'var(--d3)';
+    btn.style.borderColor='var(--d3)';
+  });
+}
+
 function loadCruiseVotes(){ return fbGet('cruiseVote2026'); }
 async function initCruiseVote(){
   var list = document.getElementById('cruise-list');
   if(!list) return;
+  list.style.gridTemplateColumns='repeat(2,1fr)';
   list.innerHTML = CRUISE_OPT.map(function(c){
     return '<div class="vote-photo-item">'
-      +'<div class="vote-photo-img"><img src="'+c.img+'" loading="lazy" decoding="async" alt="'+c.name+'"></div>'
+      +'<img src="'+c.img+'" loading="lazy" decoding="async" alt="'+c.name+'">'
       +'<div class="vote-photo-name">'+c.name+'</div>'
       +'<div style="font-size:10px;color:var(--sub);padding:1px 6px 3px;line-height:1.4">'+c.desc+'</div>'
-      +'<div style="font-size:10px;color:var(--gold);font-weight:700;padding:0 6px 6px">'+c.info+'</div>'
+      +'<div style="font-size:10px;color:var(--gold);font-weight:700;padding:0 6px 3px">'+c.info+'</div>'
+      +'<a href="'+c.url+'" target="_blank" onclick="event.stopPropagation()" style="display:block;font-size:9px;font-weight:700;color:var(--d3);text-decoration:none;padding:2px 6px 5px">🌐 公式HPはこちら</a>'
+      +'<div style="padding:3px 6px 8px"><button id="cb-'+c.id+'" class="vote-rank-btn" style="width:100%;padding:6px;border-color:var(--d3);color:var(--d3)" onclick="setCruise(\''+c.id+'\')">選ぶ</button></div>'
       +'</div>';
   }).join('');
-  renderCruiseResults();
+  await renderCruiseResults();
 }
 async function submitCruiseVote(){
-  var choice = document.getElementById('cv-choice').value;
-  if(!choice){ alert('クルーズを選んでね'); return; }
-  await fbAdd('cruiseVote2026', {choice:choice});
-  document.getElementById('cv-choice').value='';
+  if(!cruiseSel){ alert('クルーズを選んでね'); return; }
+  await fbAdd('cruiseVote2026', {choice:cruiseSel});
+  cruiseSel=null;
+  renderCruiseButtons();
   await renderCruiseResults();
+  alert('投票ありがとう！');
 }
 async function renderCruiseResults(){
   var votes = await loadCruiseVotes();
@@ -1413,6 +1417,24 @@ var NAGOYA_OPT = [
   { id:'n2', ico:'🗻', name:'静岡移動＋宿泊',   desc:'富士山・静岡グルメを堪能。静岡に移動して泊まる' },
   { id:'n3', ico:'🚄', name:'品川まで移動',      desc:'新幹線でそのまま帰路へ。品川まで移動して解散' }
 ];
+
+var nagoyaSel = null;
+function setNagoya(id){
+  nagoyaSel=(nagoyaSel===id)?null:id;
+  renderNagoyaButtons();
+}
+function renderNagoyaButtons(){
+  NAGOYA_OPT.forEach(function(o){
+    var btn=document.getElementById('nb-'+o.id);
+    if(!btn) return;
+    var isSel=nagoyaSel===o.id;
+    btn.textContent=isSel?'✅ 選択中':'選ぶ';
+    btn.style.background=isSel?'var(--d1)':'var(--white)';
+    btn.style.color=isSel?'#fff':'var(--d1)';
+    btn.style.borderColor='var(--d1)';
+  });
+}
+
 function loadNagoyaVotes(){ return fbGet('nagoyaVote2026'); }
 async function initNagoyaVote(){
   var list = document.getElementById('nagoya-list');
@@ -1421,17 +1443,19 @@ async function initNagoyaVote(){
     return '<div style="flex:1;min-width:0;background:var(--cream);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px;text-align:center">'
       +'<div style="font-size:28px;margin-bottom:4px">'+o.ico+'</div>'
       +'<div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.3">'+o.name+'</div>'
-      +'<div style="font-size:9px;color:var(--sub);line-height:1.4">'+o.desc+'</div>'
+      +'<div style="font-size:9px;color:var(--sub);line-height:1.4;margin-bottom:6px">'+o.desc+'</div>'
+      +'<button id="nb-'+o.id+'" class="vote-rank-btn" style="width:100%;padding:6px;border-color:var(--d1);color:var(--d1)" onclick="setNagoya(\''+o.id+'\')">選ぶ</button>'
       +'</div>';
   }).join('');
-  renderNagoyaResults();
+  await renderNagoyaResults();
 }
 async function submitNagoyaVote(){
-  var choice = document.getElementById('nv-choice').value;
-  if(!choice){ alert('プランを選んでね'); return; }
-  await fbAdd('nagoyaVote2026', {choice:choice});
-  document.getElementById('nv-choice').value='';
+  if(!nagoyaSel){ alert('プランを選んでね'); return; }
+  await fbAdd('nagoyaVote2026', {choice:nagoyaSel});
+  nagoyaSel=null;
+  renderNagoyaButtons();
   await renderNagoyaResults();
+  alert('投票ありがとう！');
 }
 async function renderNagoyaResults(){
   var votes = await loadNagoyaVotes();
@@ -1457,7 +1481,12 @@ async function renderNagoyaResults(){
   });
   res.innerHTML=html;
 }
-document.addEventListener('DOMContentLoaded', function(){ initVote(); initYokoVote(); initCruiseVote(); initNagoyaVote(); });
+document.addEventListener('DOMContentLoaded', async function(){
+  await initVote();
+  await initYokoVote();
+  await initCruiseVote();
+  await initNagoyaVote();
+});
 </script>
 </body>
 </html>
