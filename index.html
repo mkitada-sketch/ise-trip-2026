@@ -272,7 +272,7 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
       <div class="card-body">
         <div class="card-time">事前にみんなで</div>
         <div class="card-name">新幹線お弁当 投票</div>
-        <div class="card-brief">もえが東京駅で買っておきます。第3希望まで選んでね</div>
+        <div class="card-brief">もえが東京駅で買っておきます。食べたいのを1つ選んでね</div>
         <div class="card-tags">
           <span class="tag tag-warn" id="vote-count-tag">⚠️ 要投票 0 / 5名</span>
         </div>
@@ -285,6 +285,10 @@ body{font-family:-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-seri
         <div class="note" style="margin-bottom:10px;padding:9px 12px;font-size:11px">※事前予約しておきます。手間じゃないから安心してね！</div>
         <div class="vote-photo-grid" id="bento-list"></div>
         <div style="padding:0 0 14px">
+          <div class="vote-field" style="margin-bottom:10px">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--sub);margin-bottom:6px">👤 あなたの名前</label>
+            <input id="v-name" type="text" placeholder="名前を入力" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;background:var(--white);font-family:inherit;color:var(--text);outline:none;box-sizing:border-box" onclick="event.stopPropagation()">
+          </div>
           <button class="vote-submit-btn" onclick="submitVote();event.stopPropagation()">投票する 👍</button>
         </div>
         <div id="vote-results"></div>
@@ -1150,33 +1154,25 @@ var BENTO = [
   { id:'b42', name:'国技館やきとり',                img:_JR+'6377/0922123538_68d0c40a95c97.jpg' }
 ];
 
-var bentoSel = {r1:null, r2:null, r3:null};
+var bentoSel = null;
 
-function setBentoRank(bid, rank){
-  if(bentoSel['r'+rank]===bid){ bentoSel['r'+rank]=null; }
-  else {
-    if(bentoSel.r1===bid) bentoSel.r1=null;
-    if(bentoSel.r2===bid) bentoSel.r2=null;
-    if(bentoSel.r3===bid) bentoSel.r3=null;
-    bentoSel['r'+rank]=bid;
-  }
+function setBento(bid){
+  bentoSel = (bentoSel===bid) ? null : bid;
   renderBentoButtons();
 }
 function renderBentoButtons(){
-  var labels=['⭐1位','☆2位','☆3位'];
   BENTO.forEach(function(b){
-    [1,2,3].forEach(function(r){
-      var btn=document.getElementById('bb-'+b.id+'-r'+r);
-      if(!btn) return;
-      var isSel=bentoSel['r'+r]===b.id;
-      btn.style.borderColor=isSel?'var(--d1)':'var(--border)';
-      btn.style.color=isSel?'var(--d1)':'var(--muted)';
-      btn.style.background=isSel?'var(--d1-bg)':'var(--white)';
-    });
+    var btn=document.getElementById('bb-'+b.id);
+    if(!btn) return;
+    var isSel=bentoSel===b.id;
+    btn.textContent=isSel?'✅ 選択中':'選ぶ';
+    btn.style.borderColor=isSel?'var(--d1)':'var(--border)';
+    btn.style.color=isSel?'var(--d1)':'var(--muted)';
+    btn.style.background=isSel?'var(--d1-bg)':'var(--white)';
   });
 }
 
-function loadVotes(){ return fbGet('bentoVotes2026'); }
+function loadVotes(){ return fbGet('bentoVotes2026v2'); }
 
 async function initVote(){
   var grid = document.getElementById('bento-list');
@@ -1185,10 +1181,8 @@ async function initVote(){
     return '<div class="vote-photo-item">'
       + '<img src="'+b.img+'" loading="lazy" alt="'+b.name+'">'
       + '<div class="vote-photo-name">'+b.name+'</div>'
-      + '<div class="vote-rank-btns">'
-      + '<button id="bb-'+b.id+'-r1" class="vote-rank-btn" onclick="setBentoRank(\''+b.id+'\',1)">⭐1位</button>'
-      + '<button id="bb-'+b.id+'-r2" class="vote-rank-btn" onclick="setBentoRank(\''+b.id+'\',2)">☆2位</button>'
-      + '<button id="bb-'+b.id+'-r3" class="vote-rank-btn" onclick="setBentoRank(\''+b.id+'\',3)">☆3位</button>'
+      + '<div style="padding:3px 4px 6px">'
+      + '<button id="bb-'+b.id+'" class="vote-rank-btn" style="width:100%" onclick="setBento(\''+b.id+'\')">選ぶ</button>'
       + '</div>'
       + '</div>';
   }).join('');
@@ -1196,11 +1190,14 @@ async function initVote(){
 }
 
 async function submitVote(){
-  var f1=bentoSel.r1, f2=bentoSel.r2, f3=bentoSel.r3;
-  if(!f1||!f2||!f3){ alert('第1〜3希望をすべて選んでください'); return; }
-  await fbAdd('bentoVotes2026', {f1:f1, f2:f2, f3:f3});
-  bentoSel={r1:null,r2:null,r3:null};
+  var name=(document.getElementById('v-name')||{}).value;
+  if(name) name=name.trim();
+  if(!name){ alert('名前を入力してください'); return; }
+  if(!bentoSel){ alert('お弁当を選んでください'); return; }
+  await fbAdd('bentoVotes2026v2', {name:name, choice:bentoSel});
+  bentoSel=null;
   renderBentoButtons();
+  document.getElementById('v-name').value='';
   await renderVoteResults();
   alert('投票ありがとう！');
 }
@@ -1209,32 +1206,34 @@ async function renderVoteResults(){
   var votes = await loadVotes();
   var tag = document.getElementById('vote-count-tag');
   if(tag){
-    var n=votes.length;
-    tag.textContent = n>0 ? '📊 '+n+'票' : '投票してね';
+    var n=votes.filter(function(v){return v&&v.name&&v.choice;}).length;
+    tag.textContent = n>0 ? '📊 '+n+'名' : '投票してね';
     tag.className = 'tag '+(n>0?'tag-info':'tag-warn');
   }
   var el = document.getElementById('vote-results');
   if(!el) return;
-  if(votes.length===0){ el.innerHTML=''; return; }
-  var scores = {};
-  BENTO.forEach(function(b){ scores[b.id]=0; });
-  votes.forEach(function(v){ scores[v.f1]=(scores[v.f1]||0)+3; scores[v.f2]=(scores[v.f2]||0)+2; scores[v.f3]=(scores[v.f3]||0)+1; });
-  var sorted = BENTO.filter(function(b){ return scores[b.id]>0; }).sort(function(a,b){ return scores[b.id]-scores[a.id]; });
-  var maxScore = sorted.length ? scores[sorted[0].id] : 1;
-  var medals = ['🥇','🥈','🥉','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42'];
-  var barsHtml = sorted.map(function(b,i){
-    var pct = Math.round(scores[b.id]/maxScore*100);
-    return '<div class="result-item"><div class="result-medal">'+medals[i]+'</div>'
-      + '<div class="result-bar-wrap"><div class="result-name">'+b.name+'</div>'
-      + '<div class="result-bar" style="width:'+pct+'%"></div></div>'
-      + '<div class="result-pts">'+scores[b.id]+'pt</div></div>';
-  }).join('');
-  el.innerHTML = '<div class="vote-result-box"><div class="vote-hd" style="margin-top:0">📊 集計結果（'+votes.length+'票）</div>'
-    + barsHtml
-    + '<button class="vote-reset-btn" onclick="clearVotes()">🗑 投票をリセット</button></div>';
+  var valid=votes.filter(function(v){return v&&v.name&&v.choice;});
+  if(!valid.length){ el.innerHTML=''; return; }
+  var groups={};
+  valid.forEach(function(v){
+    if(!groups[v.choice]) groups[v.choice]=[];
+    groups[v.choice].push(v.name);
+  });
+  var sorted=BENTO.filter(function(b){return groups[b.id]&&groups[b.id].length>0;})
+    .sort(function(a,b){return groups[b.id].length-groups[a.id].length;});
+  var html='<div class="vote-result-box"><div class="vote-hd" style="margin-top:0">🍱 みんなの選択（'+valid.length+'名）</div>';
+  sorted.forEach(function(b){
+    html+='<div style="margin-bottom:12px">'
+      +'<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px">'+b.name+'</div>'
+      +'<div style="display:flex;gap:4px;flex-wrap:wrap">'
+      +groups[b.id].map(function(n){return '<span class="voter-chip">'+n+'</span>';}).join('')
+      +'</div></div>';
+  });
+  html+='<button class="vote-reset-btn" onclick="clearVotes()">🗑 投票をリセット</button></div>';
+  el.innerHTML=html;
 }
 async function clearVotes(){
-  if(confirm('投票をすべてリセットしますか？')){ await fbClear('bentoVotes2026'); await renderVoteResults(); }
+  if(confirm('投票をすべてリセットしますか？')){ await fbClear('bentoVotes2026v2'); await renderVoteResults(); }
 }
 
 // ===== YOKO FOOD VOTE =====
